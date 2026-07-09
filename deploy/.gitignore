@@ -1,0 +1,3 @@
+# Không commit file này — chứa mật khẩu VPS
+.env.deploy
+node_modules/

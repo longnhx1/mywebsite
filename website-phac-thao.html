@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>longn.dev — nhật ký số</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-elev:#f4f5f7;
+    --bg-elev-2:#eceef2;
+    --text:#1d2129;
+    --text-dim:#5b6472;
+    --text-faint:#9aa3b2;
+    --border:#e2e5eb;
+    --gold:#b8791f;
+    --teal:#0f7d6c;
+    --rose:#bf4a4a;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--gold); color:#ffffff;}
+
+  /* ---------- window chrome ---------- */
+  .window{
+    max-width:1180px;
+    margin:28px auto;
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 30px 70px -35px rgba(29,33,41,0.28);
+  }
+  .titlebar{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:10px 16px;
+    background:var(--bg-elev);
+    border-bottom:1px solid var(--border);
+  }
+  .dots{display:flex; gap:7px;}
+  .dot{width:11px; height:11px; border-radius:50%;}
+  .dot.r{background:#e5645f;} .dot.y{background:#e8b34d;} .dot.g{background:#57c274;}
+  .titlebar-path{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text-faint);
+  }
+
+  /* ---------- tab bar (primary nav) ---------- */
+  .tabbar{
+    display:flex;
+    background:var(--bg-elev);
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .tabbar::-webkit-scrollbar{display:none;}
+  .tab{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+    background:transparent;
+    border:none;
+    border-right:1px solid var(--border);
+    padding:11px 20px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+    position:relative;
+    transition:color .15s ease, background .15s ease;
+  }
+  .tab:hover{color:var(--text);}
+  .tab:focus-visible{outline:2px solid var(--gold); outline-offset:-2px;}
+  .tab .ext{opacity:.6;}
+  .tab.active{color:var(--text); background:var(--bg);}
+  .tab.active::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-1px;
+    height:2px;
+    background:var(--gold);
+  }
+  .tab .dice{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--text-faint);
+    flex:none;
+  }
+  .tab.active .dice{background:var(--gold);}
+
+  /* ---------- content shell ---------- */
+  .stage{background:var(--bg); min-height:70vh;}
+  .view{display:none; padding:56px 60px 70px;}
+  .view.active{display:block;}
+  @media (max-width:720px){ .view{padding:40px 22px 56px;} }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--teal);
+    letter-spacing:.04em;
+    margin:0 0 10px;
+  }
+  .eyebrow::before{content:"// ";}
+  h1,h2,h3{font-family:var(--mono); font-weight:600; margin:0 0 .3em; letter-spacing:-.01em;}
+  h1{font-size:clamp(30px,5vw,46px); line-height:1.15;}
+  h2{font-size:26px;}
+  p{color:var(--text-dim); max-width:640px;}
+  .lede{font-family:var(--sans); font-size:17px; color:var(--text-dim); max-width:560px;}
+
+  /* ---------- HOME ---------- */
+  .hero{display:flex; gap:56px; flex-wrap:wrap; align-items:flex-start;}
+  .hero-main{flex:1 1 420px;}
+  .cursor{display:inline-block; width:9px; height:1.05em; background:var(--gold); vertical-align:text-bottom; animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .cta-row{display:flex; gap:12px; margin-top:26px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:13.5px;
+    padding:11px 18px; border-radius:6px; border:1px solid var(--border);
+    cursor:pointer; background:var(--bg-elev); color:var(--text);
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .btn:hover{border-color:var(--gold); transform:translateY(-1px);}
+  .btn:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+  .btn.primary{background:var(--gold); color:#ffffff; border-color:var(--gold); font-weight:600;}
+  .btn.primary:hover{filter:brightness(1.06);}
+
+  .stat-card{
+    background:var(--bg-elev);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:18px 20px;
+    min-width:170px;
+  }
+  .stat-card .n{font-family:var(--mono); font-size:26px; color:var(--gold);}
+  .stat-card .l{font-size:12.5px; color:var(--text-dim); font-family:var(--mono);}
+  .stat-grid{display:flex; gap:14px; flex-wrap:wrap; margin-top:8px;}
+
+  .terminal{
+    flex:1 1 320px;
+    background:var(--bg-elev);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:18px 20px;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+  }
+  .terminal .ln{display:flex; gap:14px; margin:5px 0;}
+  .terminal .ln .no{color:var(--text-faint); width:16px; text-align:right; flex:none;}
+  .kw{color:var(--gold);} .str{color:var(--teal);} .tag{color:var(--rose);}
+
+  /* ---------- BLOG ---------- */
+  .filter-row{display:flex; gap:8px; margin:26px 0 22px; flex-wrap:wrap;}
+  .chip{
+    font-family:var(--mono); font-size:12.5px;
+    padding:7px 13px; border-radius:20px;
+    border:1px solid var(--border); color:var(--text-dim);
+    cursor:pointer; background:transparent;
+  }
+  .chip.active{border-color:var(--teal); color:var(--teal); background:rgba(79,184,166,.08);}
+  .post-list{border-top:1px solid var(--border);}
+  .post-row{
+    display:flex; gap:20px; padding:18px 0;
+    border-bottom:1px solid var(--border);
+    align-items:baseline;
+  }
+  .post-row .no{font-family:var(--mono); color:var(--text-faint); width:26px; flex:none; font-size:13px;}
+  .post-row .meta{flex:1;}
+  .post-row h3{font-size:16.5px; margin-bottom:4px;}
+  .post-row .sub{font-size:13.5px; color:var(--text-dim); margin:0;}
+  .post-row .tag-pill{
+    font-family:var(--mono); font-size:11px; color:var(--bg);
+    background:var(--teal); padding:2px 8px; border-radius:4px;
+    flex:none; align-self:center; font-weight:600;
+  }
+  .post-row .tag-pill.exp{background:var(--rose);}
+  .post-row .date{font-family:var(--mono); font-size:12px; color:var(--text-faint); flex:none; align-self:center;}
+
+  /* ---------- PROJECTS ---------- */
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; margin-top:24px;}
+  .card{
+    background:var(--bg-elev); border:1px solid var(--border); border-radius:8px;
+    padding:20px; display:flex; flex-direction:column; gap:10px;
+  }
+  .card .icon{font-family:var(--mono); color:var(--gold); font-size:13px;}
+  .card h3{font-size:15.5px;}
+  .card p{font-size:13.5px; margin:0;}
+  .card .tech{display:flex; gap:6px; flex-wrap:wrap; margin-top:auto;}
+  .pill{font-family:var(--mono); font-size:10.5px; color:var(--text-dim); border:1px solid var(--border); padding:3px 8px; border-radius:4px;}
+
+  .tool-box{
+    margin-top:40px;
+    background:var(--bg-elev);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:24px 26px;
+  }
+  .tool-box textarea{
+    width:100%; min-height:110px; resize:vertical;
+    background:#ffffff; color:var(--text); border:1px solid var(--border);
+    border-radius:6px; padding:12px 14px; font-family:var(--sans); font-size:14px;
+  }
+  .tool-box textarea:focus-visible{outline:2px solid var(--gold);}
+  .tool-out{display:flex; gap:22px; flex-wrap:wrap; margin-top:14px; font-family:var(--mono); font-size:13px; color:var(--text-dim);}
+  .tool-out b{color:var(--teal); display:block; font-size:20px; font-family:var(--mono);}
+
+  /* ---------- DASHBOARD ---------- */
+  .dash-grid{display:grid; grid-template-columns:220px 1fr; gap:0; border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-top:22px;}
+  @media (max-width:720px){ .dash-grid{grid-template-columns:1fr;} }
+  .dash-side{background:var(--bg-elev); padding:18px 16px; border-right:1px solid var(--border);}
+  .dash-side .item{
+    font-family:var(--mono); font-size:13px; color:var(--text-dim);
+    padding:9px 10px; border-radius:6px; margin-bottom:4px; cursor:pointer;
+  }
+  .dash-side .item.on{background:var(--bg-elev-2); color:var(--text); border-left:2px solid var(--gold);}
+  .dash-main{background:var(--bg); padding:22px 24px;}
+  .dash-toolbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;}
+  table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  th{font-family:var(--mono); text-align:left; font-size:11.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.05em; padding:8px 10px; border-bottom:1px solid var(--border);}
+  td{padding:11px 10px; border-bottom:1px solid var(--border); color:var(--text-dim);}
+  td.title{color:var(--text);}
+  .status{font-family:var(--mono); font-size:11px; padding:3px 9px; border-radius:20px;}
+  .status.pub{background:rgba(79,184,166,.12); color:var(--teal);}
+  .status.draft{background:rgba(232,163,61,.12); color:var(--gold);}
+  .dash-stats{display:flex; gap:14px; margin-bottom:20px; flex-wrap:wrap;}
+
+  footer{
+    text-align:center; padding:34px 20px; color:var(--text-faint);
+    font-family:var(--mono); font-size:12.5px; border-top:1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<div class="window">
+  <div class="titlebar">
+    <div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+    <div class="titlebar-path">~/longn.dev <span id="crumb">— home.tsx</span></div>
+  </div>
+
+  <div class="tabbar" role="tablist" aria-label="Điều hướng chính">
+    <button class="tab active" data-view="home" role="tab" aria-selected="true"><span class="dice"></span>Home<span class="ext">.tsx</span></button>
+    <button class="tab" data-view="blog" role="tab" aria-selected="false"><span class="dice"></span>Blog<span class="ext">.md</span></button>
+    <button class="tab" data-view="projects" role="tab" aria-selected="false"><span class="dice"></span>Projects<span class="ext">.json</span></button>
+    <button class="tab" data-view="dashboard" role="tab" aria-selected="false"><span class="dice"></span>Dashboard<span class="ext">.admin</span></button>
+  </div>
+
+  <div class="stage">
+
+    <!-- HOME -->
+    <section class="view active" id="home" data-panel="home">
+      <div class="hero">
+        <div class="hero-main">
+          <p class="eyebrow">sinh viên ngành hệ thống thông tin</p>
+          <h1>Ghi lại quá trình học,<br>chia sẻ những gì học được<span class="cursor"></span></h1>
+          <p class="lede">Đây là không gian riêng để lưu trải nghiệm học tập, viết lại kiến thức kỹ thuật, và trưng bày những sản phẩm nhỏ mình tự tay xây dựng.</p>
+          <div class="cta-row">
+            <button class="btn primary" data-goto="blog">Đọc bài viết mới nhất</button>
+            <button class="btn" data-goto="projects">Xem project</button>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card"><div class="n">12</div><div class="l">bài viết</div></div>
+            <div class="stat-card"><div class="n">5</div><div class="l">project</div></div>
+            <div class="stat-card"><div class="n">3</div><div class="l">mini-tool</div></div>
+          </div>
+        </div>
+        <div class="terminal" aria-hidden="true">
+          <div class="ln"><span class="no">1</span><span><span class="kw">const</span> author = {</span></div>
+          <div class="ln"><span class="no">2</span><span>&nbsp;&nbsp;role: <span class="str">"student"</span>,</span></div>
+          <div class="ln"><span class="no">3</span><span>&nbsp;&nbsp;major: <span class="str">"information systems"</span>,</span></div>
+          <div class="ln"><span class="no">4</span><span>&nbsp;&nbsp;writes: [<span class="tag">"blog"</span>, <span class="tag">"tutorial"</span>, <span class="tag">"story"</span>],</span></div>
+          <div class="ln"><span class="no">5</span><span>&nbsp;&nbsp;status: <span class="str">"đang học mỗi ngày"</span></span></div>
+          <div class="ln"><span class="no">6</span><span>};</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG -->
+    <section class="view" id="blog" data-panel="blog">
+      <p class="eyebrow">kho nội dung</p>
+      <h2>Blog &amp; Kiến thức</h2>
+      <p>Trải nghiệm cá nhân và các bài viết kỹ thuật, gom về một chỗ.</p>
+      <div class="filter-row">
+        <button class="chip active" data-filter="all">Tất cả</button>
+        <button class="chip" data-filter="exp">Trải nghiệm</button>
+        <button class="chip" data-filter="know">Kiến thức</button>
+      </div>
+      <div class="post-list" id="postList">
+        <div class="post-row" data-cat="know">
+          <span class="no">01</span>
+          <div class="meta"><h3>Tối ưu vòng lặp trong xử lý dữ liệu lớn</h3><p class="sub">Một vài mẹo nhỏ giúp giảm thời gian chạy khi làm việc với tập dữ liệu hàng triệu dòng.</p></div>
+          <span class="tag-pill">Kiến thức</span>
+          <span class="date">02/07</span>
+        </div>
+        <div class="post-row" data-cat="exp">
+          <span class="no">02</span>
+          <div class="meta"><h3>Những gì mình học được sau đồ án phân tích thiết kế</h3><p class="sub">Từ lúc vẽ use case đến lúc bảo vệ đồ án — những bài học không nằm trong slide.</p></div>
+          <span class="tag-pill exp">Trải nghiệm</span>
+          <span class="date">28/06</span>
+        </div>
+        <div class="post-row" data-cat="know">
+          <span class="no">03</span>
+          <div class="meta"><h3>Dùng AI hỗ trợ lập trình sao cho hiệu quả</h3><p class="sub">Cách đặt câu hỏi, kiểm tra lại code, và tránh phụ thuộc quá mức.</p></div>
+          <span class="tag-pill">Kiến thức</span>
+          <span class="date">21/06</span>
+        </div>
+        <div class="post-row" data-cat="exp">
+          <span class="no">04</span>
+          <div class="meta"><h3>Một chuyến đi và những dòng code viết trên tàu</h3><p class="sub">Ghi chép ngắn về một chuyến đi xa và vài ý tưởng nảy ra dọc đường.</p></div>
+          <span class="tag-pill exp">Trải nghiệm</span>
+          <span class="date">10/06</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="view" id="projects" data-panel="projects">
+      <p class="eyebrow">góc ứng dụng</p>
+      <h2>Projects &amp; Mini-tools</h2>
+      <p>Những sản phẩm đã làm, và vài công cụ nhỏ dùng thử được ngay tại đây.</p>
+      <div class="grid">
+        <div class="card">
+          <span class="icon">[game]</span>
+          <h3>Pixel Quest</h3>
+          <p>Game nhập vai 2D làm cho đồ án môn lập trình game.</p>
+          <div class="tech"><span class="pill">Unity</span><span class="pill">C#</span></div>
+        </div>
+        <div class="card">
+          <span class="icon">[web]</span>
+          <h3>Coffee Shop Manager</h3>
+          <p>Hệ thống quản lý quán cà phê — use case, class diagram, và bản dựng thật.</p>
+          <div class="tech"><span class="pill">Next.js</span><span class="pill">Prisma</span></div>
+        </div>
+        <div class="card">
+          <span class="icon">[tool]</span>
+          <h3>Tiện ích xóa phông ảnh</h3>
+          <p>Ứng dụng nhỏ dùng model sẵn có để tách nền ảnh chân dung.</p>
+          <div class="tech"><span class="pill">Python</span><span class="pill">rembg</span></div>
+        </div>
+      </div>
+
+      <div class="tool-box">
+        <p class="eyebrow">thử ngay — mini-tool đếm từ</p>
+        <h3 style="margin-bottom:10px;">Đếm số từ &amp; thời gian đọc</h3>
+        <textarea id="toolInput" placeholder="Dán đoạn văn vào đây để xem thống kê..."></textarea>
+        <div class="tool-out">
+          <div><b id="wordCount">0</b>từ</div>
+          <div><b id="charCount">0</b>ký tự</div>
+          <div><b id="readTime">0 phút</b>thời gian đọc</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section class="view" id="dashboard" data-panel="dashboard">
+      <p class="eyebrow">trang quản trị — chỉ admin</p>
+      <h2>Dashboard</h2>
+      <p>Bản phác thảo giao diện quản trị: soạn bài, theo dõi lượt xem, quản lý media.</p>
+      <div class="dash-grid">
+        <div class="dash-side">
+          <div class="item on">📝 Bài viết</div>
+          <div class="item">🖼️ Media</div>
+          <div class="item">📊 Thống kê</div>
+          <div class="item">⚙️ Cài đặt</div>
+        </div>
+        <div class="dash-main">
+          <div class="dash-stats">
+            <div class="stat-card"><div class="n">1,204</div><div class="l">lượt xem tuần này</div></div>
+            <div class="stat-card"><div class="n">2</div><div class="l">bản nháp</div></div>
+            <div class="stat-card"><div class="n">10</div><div class="l">đã xuất bản</div></div>
+          </div>
+          <div class="dash-toolbar">
+            <span style="font-family:var(--mono); font-size:13px; color:var(--text-dim);">Quản lý bài viết</span>
+            <button class="btn primary">+ Bài viết mới</button>
+          </div>
+          <table>
+            <thead><tr><th>Tiêu đề</th><th>Trạng thái</th><th>Lượt xem</th><th>Cập nhật</th></tr></thead>
+            <tbody>
+              <tr><td class="title">Tối ưu vòng lặp trong xử lý dữ liệu lớn</td><td><span class="status pub">Đã xuất bản</span></td><td>412</td><td>02/07</td></tr>
+              <tr><td class="title">Một chuyến đi và những dòng code viết trên tàu</td><td><span class="status pub">Đã xuất bản</span></td><td>289</td><td>10/06</td></tr>
+              <tr><td class="title">So sánh JWT và Session cho web cá nhân</td><td><span class="status draft">Bản nháp</span></td><td>—</td><td>hôm nay</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer>© longn.dev — bản phác thảo giao diện, xây bằng Next.js + Supabase (đề xuất)</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const views = document.querySelectorAll('.view');
+  const crumb = document.getElementById('crumb');
+  const crumbMap = {home:'— home.tsx', blog:'— blog.md', projects:'— projects.json', dashboard:'— dashboard.admin'};
+
+  function activate(name){
+    tabs.forEach(t=>{
+      const on = t.dataset.view === name;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on);
+    });
+    views.forEach(v=> v.classList.toggle('active', v.id === name));
+    crumb.textContent = crumbMap[name] || '';
+  }
+
+  tabs.forEach(t=> t.addEventListener('click', ()=> activate(t.dataset.view)));
+  document.querySelectorAll('[data-goto]').forEach(b=>{
+    b.addEventListener('click', ()=> activate(b.dataset.goto));
+  });
+
+  // blog filter
+  const chips = document.querySelectorAll('.chip');
+  const rows = document.querySelectorAll('#postList .post-row');
+  chips.forEach(c=>{
+    c.addEventListener('click', ()=>{
+      chips.forEach(x=>x.classList.remove('active'));
+      c.classList.add('active');
+      const f = c.dataset.filter;
+      rows.forEach(r=> r.style.display = (f==='all' || r.dataset.cat===f) ? 'flex' : 'none');
+    });
+  });
+
+  // word counter tool
+  const input = document.getElementById('toolInput');
+  const wc = document.getElementById('wordCount');
+  const cc = document.getElementById('charCount');
+  const rt = document.getElementById('readTime');
+  input.addEventListener('input', ()=>{
+    const text = input.value.trim();
+    const words = text.length ? text.split(/\s+/).length : 0;
+    wc.textContent = words;
+    cc.textContent = input.value.length;
+    rt.textContent = Math.max(1, Math.ceil(words/200)) + ' phút';
+  });
+</script>
+
+</body>
+</html>

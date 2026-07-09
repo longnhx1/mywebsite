@@ -1,0 +1,13 @@
+{
+  "name": "longn-deploy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "node remote-deploy.mjs --build",
+    "deploy:files": "node remote-deploy.mjs",
+    "setup-duckdns": "node setup-duckdns-remote.mjs"
+  },
+  "dependencies": {
+    "ssh2": "^1.16.0"
+  }
+}

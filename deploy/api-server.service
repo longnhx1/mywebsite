@@ -1,0 +1,15 @@
+[Unit]
+Description=longn.dev API Server (publish, upload)
+After=network.target
+
+[Service]
+Type=simple
+User=eve
+WorkingDirectory=/home/eve/Documents/myweb
+ExecStart=/usr/bin/node /home/eve/Documents/myweb/deploy/api-server.mjs
+Restart=on-failure
+RestartSec=5
+Environment=API_PORT=3001
+
+[Install]
+WantedBy=multi-user.target
