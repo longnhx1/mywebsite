@@ -35,5 +35,3 @@ export const projects = [
     technologies: ["Python", "Pandas", "Matplotlib"],
   },
 ];
-
-export const MINI_TOOL_COUNT = 1;

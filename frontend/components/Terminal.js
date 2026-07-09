@@ -5,39 +5,49 @@
 import { useEffect, useState } from "react";
 
 const LINES = [
-  { parts: [{ t: "const", c: "kw" }, { t: " author = {" }] },
   {
     parts: [
-      { t: "  role: ", c: "" },
-      { t: '"student"', c: "str" },
-      { t: "," },
+      { t: "eve@longn.dev", c: "kw" },
+      { t: ":", c: "" },
+      { t: "~", c: "str" },
+      { t: "$ whoami" },
+    ],
+  },
+  { parts: [{ t: "Nguyễn Huỳnh Long (eve)" }] },
+  {
+    parts: [
+      { t: "eve@longn.dev", c: "kw" },
+      { t: ":", c: "" },
+      { t: "~", c: "str" },
+      { t: "$ cat contact.txt" },
     ],
   },
   {
     parts: [
-      { t: "  major: ", c: "" },
-      { t: '"information systems"', c: "str" },
-      { t: "," },
+      { t: "Discord: ", c: "tag-syntax" },
+      { t: "https://discord.gg/NankzV8mRw", c: "str" },
     ],
   },
   {
     parts: [
-      { t: "  writes: [", c: "" },
-      { t: '"blog"', c: "tag-syntax" },
-      { t: ", " },
-      { t: '"tutorial"', c: "tag-syntax" },
-      { t: ", " },
-      { t: '"story"', c: "tag-syntax" },
-      { t: "]," },
+      { t: "Facebook: ", c: "tag-syntax" },
+      { t: "https://www.facebook.com/longnhk5/", c: "str" },
     ],
   },
   {
     parts: [
-      { t: "  status: ", c: "" },
-      { t: '"đang học mỗi ngày"', c: "str" },
+      { t: "Email: ", c: "tag-syntax" },
+      { t: "nguyeenhuynhlong@gmail.com", c: "str" },
     ],
   },
-  { parts: [{ t: "}" }] },
+  {
+    parts: [
+      { t: "eve@longn.dev", c: "kw" },
+      { t: ":", c: "" },
+      { t: "~", c: "str" },
+      { t: "$ " },
+    ],
+  },
 ];
 
 function renderLine(line) {

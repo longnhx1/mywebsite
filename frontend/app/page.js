@@ -4,7 +4,7 @@ import AnimateOnView from "@/components/AnimateOnView";
 import PostRow from "@/components/PostRow";
 import Link from "next/link";
 import { getAllPosts, formatDate } from "@/lib/posts";
-import { projects, MINI_TOOL_COUNT } from "@/lib/projects";
+import { projects } from "@/lib/projects";
 
 export default function HomePage() {
   const posts = getAllPosts();
@@ -13,7 +13,6 @@ export default function HomePage() {
   const stats = {
     posts: posts.length,
     projects: projects.length,
-    tools: MINI_TOOL_COUNT,
   };
 
   return (
@@ -57,7 +56,6 @@ export default function HomePage() {
               {[
                 { n: stats.posts, l: "bài viết" },
                 { n: stats.projects, l: "project" },
-                { n: stats.tools, l: "mini-tool" },
               ].map((stat, i) => (
                 <AnimateOnView key={stat.l} delay={320 + i * 80} className="stat-card-wrap">
                   <div className="stat-card">
