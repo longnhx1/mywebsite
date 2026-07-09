@@ -105,8 +105,9 @@ export default async function BlogPostPage({ params }) {
           ← Quay về Blog
         </Link>
 
-        {/* Header bài viết */}
-        <article>
+        <div className="post-container">
+          {/* Header bài viết */}
+          <article>
           <header style={{ marginBottom: "32px" }}>
             <p className="eyebrow">{post.categoryLabel}</p>
             <h1>{post.title}</h1>
@@ -134,8 +135,9 @@ export default async function BlogPostPage({ params }) {
           </div>
         </article>
 
-        {/* Giscus Comments */}
-        <Giscus slug={slug} />
+          {/* Giscus Comments */}
+          <Giscus slug={slug} />
+        </div>
       </section>
     </AppShell>
   );

@@ -737,6 +737,11 @@ footer {
 }
 
 /* ---------- Blog Post Link ---------- */
+.post-container {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
 .post-link {
   text-decoration: none;
   color: inherit;
@@ -754,7 +759,6 @@ footer {
 
 /* ---------- Prose / Markdown Content ---------- */
 .prose {
-  max-width: 720px;
   font-size: 16px;
   line-height: 1.75;
   color: var(--text);

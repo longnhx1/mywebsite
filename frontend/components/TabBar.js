@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const tabs = [
   { name: "Home", ext: ".tsx", path: "/", crumb: "— home.tsx" },
   { name: "Blog", ext: ".md", path: "/blog", crumb: "— blog.md" },
-  { name: "Apps & Games", ext: ".json", path: "/tools", crumb: "— apps-games.json" }
+  { name: "Apps & Games", ext: ".md", path: "/tools", crumb: "— apps-games.md" }
 ];
 
 const dashboardTab = { name: "Dashboard", ext: ".admin", path: "/dashboard", crumb: "— dashboard.admin" };
