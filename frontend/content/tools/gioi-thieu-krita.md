@@ -12,7 +12,8 @@ tags:
   - apps
   - designer
 ---
-<img src="/images/posts/calligrakrita-base.svg" width="600" alt="Calligrakrita-base">
+<img src="/images/posts/calligrakrita-base.svg" width="400" alt="Krita giao diện">
+
 ## Giới thiệu
 
 **Krita** là phần mềm vẽ kỹ thuật số (digital painting) miễn phí, mã nguồn mở, do cộng đồng **KDE** phát triển. Đây là lựa chọn quen thuộc của họa sĩ truyện tranh, illustrator, concept artist và cả những người làm trong ngành VFX.
@@ -32,8 +33,8 @@ Windows, macOS, Linux, Android, ChromeOS. Có thể tải miễn phí từ trang
 - Tối ưu cho bảng vẽ (tablet), thao tác nhanh bằng Pop-up Palette.
 - Hỗ trợ scripting để tự động hóa quy trình làm việc.
 
-<img src="/images/posts/calligrakrita-base.svg" width="400" alt="Krita giao diện">
 
+![alt](/images/posts/image.png)
 ## Giấy phép
 
 Krita phát hành theo giấy phép **GPL-3.0**, hoàn toàn miễn phí sử dụng và có thể tự do sửa đổi, đóng góp mã nguồn.

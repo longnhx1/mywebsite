@@ -5,7 +5,7 @@
     <link>https://longnhx.duckdns.org</link>
     <description>Ghi lại quá trình học, chia sẻ những gì học được.</description>
     <language>vi</language>
-    <lastBuildDate>2026-07-09T18:23:48.063Z</lastBuildDate>
+    <lastBuildDate>2026-07-09T18:34:24.671Z</lastBuildDate>
     <atom:link href="https://longnhx.duckdns.org/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://longnhx.duckdns.org/favicon.png</url>
@@ -30,6 +30,17 @@
       <category>Kiến thức</category>
       <category>apps</category>
       <category>designer</category>
+    </item>
+    <item>
+      <title>WinDirStat – Công cụ phân tích và dọn dẹp dung lượng ổ đĩa cho Windows</title>
+      <link>https://longnhx.duckdns.org/blog/gioi-thieu-windirstat</link>
+      <guid isPermaLink="true">https://longnhx.duckdns.org/blog/gioi-thieu-windirstat</guid>
+      <description>Tìm hiểu về WinDirStat, phần mềm miễn phí, mã nguồn mở giúp trực quan hóa dung lượng ổ đĩa Windows bằng treemap, hỗ trợ tìm và dọn file lớn nhanh chóng.</description>
+      <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
+      <category>Kiến thức</category>
+      <category>apps</category>
+      <category>windows</category>
+      <category>utility</category>
     </item>
     <item>
       <title>Tối ưu vòng lặp trong xử lý dữ liệu lớn</title>
