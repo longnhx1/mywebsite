@@ -18,17 +18,17 @@ const iconMap = {
   web: "🌐", game: "🎮", tool: "🔧", data: "📊",
 };
 
-export default function DashboardClient({ posts, projects, rawProjects, tools, rawTools, stats }) {
+export default function DashboardClient({ posts, toolsPosts, stats }) {
   const [activePanel, setActivePanel] = useState("posts");
   const router = useRouter();
 
-  const handleDelete = async (slug, title) => {
+  const handleDelete = async (slug, title, type = "posts") => {
     if (!window.confirm(`Bạn có chắc chắn muốn xóa bài viết "${title}" không? Hành động này không thể hoàn tác.`)) {
       return;
     }
     
     try {
-      const res = await fetch(`/api/delete?slug=${slug}&type=posts`, { method: "DELETE" });
+      const res = await fetch(`/api/delete?slug=${slug}&type=${type}`, { method: "DELETE" });
       const data = await res.json();
       if (data.ok) {
         alert("Đã xóa bài viết thành công!");
@@ -114,7 +114,7 @@ export default function DashboardClient({ posts, projects, rawProjects, tools, r
                         Sửa
                       </Link>
                       <button
-                        onClick={() => handleDelete(post.slug, post.title)}
+                        onClick={() => handleDelete(post.slug, post.title, "posts")}
                         className="btn btn-sm"
                         style={{ color: "var(--danger, #ff4d4f)", borderColor: "var(--danger, #ff4d4f)" }}
                       >
@@ -132,65 +132,56 @@ export default function DashboardClient({ posts, projects, rawProjects, tools, r
         )}
 
         {activePanel === "apps-games" && (
-          <div className="dash-panel">
-            <h3>📦 Apps, Games & Tools</h3>
-            <p>Dữ liệu Apps/Games lưu tại <code>content/projects.json</code>, Tools lưu tại <code>content/tools.json</code>. Sửa file JSON và rebuild để cập nhật.</p>
-            
-            <h4>Apps & Games</h4>
+          <>
+            <div className="dash-toolbar">
+              <span className="dash-toolbar-label">Quản lý Apps &amp; Games</span>
+              <Link href="/dashboard/edit" className="btn primary">
+                + Bài viết mới
+              </Link>
+            </div>
+
             <table>
               <thead>
                 <tr>
-                  <th>Tên</th>
-                  <th>Công nghệ</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {projects.map((p, i) => (
-                  <tr key={i}>
-                    <td className="title">{iconMap[p.icon] || "📄"} {p.title}</td>
-                    <td>{p.technologies?.join(", ")}</td>
-                    <td className="dash-actions">
-                      <button className="btn btn-sm" onClick={() => navigator.clipboard?.writeText(JSON.stringify(rawProjects, null, 2))}>Copy JSON</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            
-            <h4 style={{ marginTop: '2rem' }}>Công cụ phần mềm</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Tên</th>
+                  <th>Tiêu đề</th>
                   <th>Danh mục</th>
-                  <th>Nền tảng</th>
+                  <th>Ngày</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                {tools.map((t, i) => (
-                  <tr key={i}>
-                    <td className="title">{t.icon} {t.name}</td>
-                    <td>{t.categoryLabel}</td>
-                    <td>{t.platform}</td>
+                {toolsPosts.map((post) => (
+                  <tr key={post.slug}>
+                    <td className="title">{post.title}</td>
+                    <td>
+                      <span className="status pub">
+                        {post.categoryLabel || "Apps & Games"}
+                      </span>
+                    </td>
+                    <td>{post.dateShort}</td>
                     <td className="dash-actions">
-                      <button className="btn btn-sm" onClick={() => navigator.clipboard?.writeText(JSON.stringify(rawTools, null, 2))}>Copy JSON</button>
+                      <Link
+                        href={`/dashboard/edit/${post.slug}`}
+                        className="btn btn-sm"
+                      >
+                        Sửa
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(post.slug, post.title, "tools")}
+                        className="btn btn-sm"
+                        style={{ color: "var(--danger, #ff4d4f)", borderColor: "var(--danger, #ff4d4f)" }}
+                      >
+                        Xóa
+                      </button>
+                      <Link href={`/tools/${post.slug}`} className="btn btn-sm">
+                        Xem
+                      </Link>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            
-            <details style={{ marginTop: 16 }}>
-              <summary>Raw JSON (Apps & Games)</summary>
-              <pre className="json-preview">{rawProjects}</pre>
-            </details>
-            <details style={{ marginTop: 16 }}>
-              <summary>Raw JSON (Tools)</summary>
-              <pre className="json-preview">{rawTools}</pre>
-            </details>
-          </div>
+          </>
         )}
 
         {activePanel === "media" && (

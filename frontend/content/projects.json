@@ -1,9 +1,0 @@
-[
-  {
-    "icon": "web",
-    "title": "longn.dev",
-    "description": "Website cá nhân code editor theme — Next.js Static Export, nội dung Markdown, deploy Nginx.",
-    "technologies": ["Next.js", "Markdown", "Nginx"],
-    "href": "/"
-  }
-]

@@ -19,27 +19,31 @@ function readRawJson(name) {
 }
 
 export default function DashboardPage() {
-  const posts = getAllPosts().map((post) => ({
+  const posts = getAllPosts("posts").map((post) => ({
     slug: post.slug,
     title: post.title,
     category: post.category,
     categoryLabel: post.categoryLabel,
     dateShort: formatDate(post.date),
+    type: "posts",
   }));
 
-  const rawProjects = readRawJson("projects.json");
-  const rawTools = readRawJson("tools.json");
-  const projects = JSON.parse(rawProjects);
-  const tools = JSON.parse(rawTools);
+  const toolsPosts = getAllPosts("tools").map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    category: post.category,
+    categoryLabel: post.categoryLabel,
+    dateShort: formatDate(post.date),
+    type: "tools",
+  }));
 
   const knowCount = posts.filter((p) => p.category === "know").length;
   const expCount = posts.filter((p) => p.category === "exp").length;
 
   const dashStats = [
-    { value: String(posts.length), label: "bài viết" },
-    { value: String(projects.length), label: "project" },
-    { value: String(tools.length), label: "tools" },
-    { value: `${knowCount}/${expCount}`, label: "know/exp" },
+    { value: String(posts.length), label: "bài viết blog" },
+    { value: String(toolsPosts.length), label: "bài viết apps" },
+    { value: `${knowCount}/${expCount}`, label: "know/exp (blog)" },
   ];
 
   return (
@@ -49,17 +53,14 @@ export default function DashboardPage() {
           <p className="eyebrow">trang quản trị</p>
           <h2>Dashboard</h2>
           <p>
-            Quản lý nội dung website — bài viết Markdown, projects, tools.
+            Quản lý nội dung website — bài viết Markdown cho Blog và Apps &amp; Games.
           </p>
         </AnimateOnView>
 
         <AnimateOnView delay={120}>
           <DashboardClient
             posts={posts}
-            projects={projects}
-            rawProjects={rawProjects}
-            tools={tools}
-            rawTools={rawTools}
+            toolsPosts={toolsPosts}
             stats={dashStats}
           />
         </AnimateOnView>

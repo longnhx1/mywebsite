@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import PostRow from "@/components/PostRow";
 
-export default function BlogContent({ posts }) {
+export default function BlogContent({ posts, baseRoute = "/blog" }) {
   const [activeFilter, setActiveFilter] = useState("all");
   const [listKey, setListKey] = useState(0);
 
@@ -42,7 +42,7 @@ export default function BlogContent({ posts }) {
         {filteredPosts.map((post, index) => (
           <Link
             key={post.slug}
-            href={`/blog/${post.slug}`}
+            href={`${baseRoute}/${post.slug}`}
             className="post-link"
             style={{ animationDelay: `${index * 50}ms` }}
           >
