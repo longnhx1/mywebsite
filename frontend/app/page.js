@@ -4,15 +4,16 @@ import AnimateOnView from "@/components/AnimateOnView";
 import PostRow from "@/components/PostRow";
 import Link from "next/link";
 import { getAllPosts, formatDate } from "@/lib/posts";
-import { projects } from "@/lib/projects";
 
 export default function HomePage() {
   const posts = getAllPosts();
   const recentPosts = posts.slice(0, 3);
 
+  const tools = getAllPosts("tools");
+
   const stats = {
     posts: posts.length,
-    projects: projects.length,
+    tools: tools.length,
   };
 
   return (
@@ -54,7 +55,7 @@ export default function HomePage() {
             <div className="stat-grid">
               {[
                 { n: stats.posts, l: "bài viết" },
-                { n: stats.projects, l: "apps & games" },
+                { n: stats.tools, l: "apps & games" },
               ].map((stat, i) => (
                 <AnimateOnView key={stat.l} delay={320 + i * 80} className="stat-card-wrap">
                   <div className="stat-card">
