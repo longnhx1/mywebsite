@@ -19,13 +19,13 @@ export async function generateMetadata({ params }) {
   const post = getPostBySlug(slug);
 
   if (!post) {
-    return { title: `Bài viết không tồn tại — ${SITE_NAME}` };
+    return { title: `Bài viết không tồn tại - ${SITE_NAME}` };
   }
 
   const url = `${SITE_URL}/blog/${slug}`;
 
   return {
-    title: `${post.title} — ${SITE_NAME}`,
+    title: `${post.title} - ${SITE_NAME}`,
     description: post.description || post.title,
     authors: [{ name: "Long N." }],
     openGraph: {

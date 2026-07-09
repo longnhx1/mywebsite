@@ -6,8 +6,8 @@ import AnimateOnView from "@/components/AnimateOnView";
 import { getAllPosts, formatDate } from "@/lib/posts";
 
 export const metadata = {
-  title: "Dashboard — longnhx",
-  description: "Trang quản trị nội dung — xem danh sách bài viết, projects, tools.",
+  title: "Dashboard - longnhx",
+  description: "Trang quản trị nội dung - xem danh sách bài viết, projects, tools.",
   robots: { index: false, follow: false },
 };
 
@@ -67,7 +67,7 @@ export default function DashboardPage() {
           <p className="eyebrow">trang quản trị</p>
           <h2>Dashboard</h2>
           <p>
-            Quản lý nội dung website — bài viết Markdown cho Blog và Apps &amp; Games.
+            Quản lý nội dung website - bài viết Markdown cho Blog và Apps &amp; Games.
           </p>
         </AnimateOnView>
 

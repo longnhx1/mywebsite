@@ -4,12 +4,12 @@ import AnimateOnView from "@/components/AnimateOnView";
 import { getAllPosts, formatDate } from "@/lib/posts";
 
 export const metadata = {
-  title: "Apps, Games & Tools — longnhx",
+  title: "Apps, Games & Tools - longnhx",
   description:
     "Những ứng dụng, tựa game nhỏ và công cụ phần mềm mình sử dụng, được lưu trữ dưới dạng Markdown.",
   alternates: { canonical: "/tools" },
   openGraph: {
-    title: "Apps & Tools — longn.dev",
+    title: "Apps & Tools - longn.dev",
     url: "https://longnhx.duckdns.org/tools",
   },
 };
