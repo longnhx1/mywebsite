@@ -152,6 +152,8 @@ export default function MarkdownEditor({
         e.preventDefault();
         const file = item.getAsFile();
         if (!file) continue;
+        const ta = e.target;
+        const start = ta.selectionStart ?? content.length;
         const reader = new FileReader();
         reader.onload = async (ev) => {
           const base64 = ev.target.result;
@@ -163,7 +165,7 @@ export default function MarkdownEditor({
           const data = await res.json();
           if (data.ok) {
             const mdLink = `![${file.name || "image"}](${data.url})`;
-            setContent((prev) => prev + "\n" + mdLink);
+            setContent((prev) => prev.slice(0, start) + mdLink + prev.slice(start));
             showStatus(`Đã paste ảnh: ${data.url}`);
           }
         };
