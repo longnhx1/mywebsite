@@ -6,7 +6,7 @@ import AnimateOnView from "@/components/AnimateOnView";
 import { getAllPosts, formatDate } from "@/lib/posts";
 
 export const metadata = {
-  title: "Dashboard — longn.dev",
+  title: "Dashboard — longnhx",
   description: "Trang quản trị nội dung — xem danh sách bài viết, projects, tools.",
   robots: { index: false, follow: false },
 };

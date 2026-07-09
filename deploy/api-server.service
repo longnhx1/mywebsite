@@ -1,5 +1,5 @@
 [Unit]
-Description=longn.dev API Server (publish, upload)
+Description=longnhx API Server (publish, upload)
 After=network.target
 
 [Service]

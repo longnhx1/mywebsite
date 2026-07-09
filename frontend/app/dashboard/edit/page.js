@@ -5,7 +5,7 @@ import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
 
 export const metadata = {
-  title: "Soạn bài mới — Dashboard — longn.dev",
+  title: "Soạn bài mới — Dashboard — longnhx",
   robots: { index: false, follow: false },
 };
 

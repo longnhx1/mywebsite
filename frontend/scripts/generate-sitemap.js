@@ -1,10 +1,7 @@
-// scripts/generate-sitemap.js — Tạo sitemap.xml + robots.txt lúc build
-
 const fs = require("fs");
 const path = require("path");
 const matter = require("gray-matter");
 
-// Đọc từ .env.production nếu có
 function loadSiteUrl() {
   const envPath = path.join(__dirname, "..", ".env.production");
   if (fs.existsSync(envPath)) {
@@ -15,30 +12,27 @@ function loadSiteUrl() {
       }
     }
   }
-  return process.env.NEXT_PUBLIC_SITE_URL || "http://longnhx.duckdns.org";
+  return process.env.NEXT_PUBLIC_SITE_URL || "https://longnhx.duckdns.org";
 }
 
 const SITE_URL = loadSiteUrl().replace(/\/$/, "");
-const postsDir = path.join(__dirname, "..", "content", "posts");
-const publicDir = path.join(__dirname, "..", "public");
 
-function getAllPosts() {
-  if (!fs.existsSync(postsDir)) return [];
+function getAllPosts(dir) {
+  const d = path.join(__dirname, "..", "content", dir);
+  if (!fs.existsSync(d)) return [];
   return fs
-    .readdirSync(postsDir)
+    .readdirSync(d)
     .filter((f) => f.endsWith(".md"))
     .map((f) => {
-      const content = fs.readFileSync(path.join(postsDir, f), "utf-8");
+      const content = fs.readFileSync(path.join(d, f), "utf-8");
       const { data } = matter(content);
-      return {
-        slug: data.slug || f.replace(/\.md$/, ""),
-        date: data.date || "",
-      };
+      return { slug: data.slug || f.replace(/\.md$/, ""), date: data.date || "" };
     });
 }
 
 function generateSitemap() {
-  const posts = getAllPosts();
+  const posts = getAllPosts("posts");
+  const tools = getAllPosts("tools");
   const today = new Date().toISOString().split("T")[0];
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -56,16 +50,10 @@ function generateSitemap() {
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>${SITE_URL}/projects</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>${SITE_URL}/tools</loc>
     <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>`;
 
   for (const post of posts) {
@@ -77,14 +65,20 @@ function generateSitemap() {
   </url>`;
   }
 
-  xml += `
-</urlset>
-`;
+  for (const tool of tools) {
+    xml += `
+  <url>
+    <loc>${SITE_URL}/tools/${tool.slug}</loc>${tool.date ? `\n    <lastmod>${tool.date}</lastmod>` : ""}
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`;
+  }
 
-  fs.writeFileSync(path.join(publicDir, "sitemap.xml"), xml);
+  xml += `\n</urlset>\n`;
 
-  const robots = `# https://www.robotstxt.org/robotstxt.html
-User-agent: *
+  fs.writeFileSync(path.join(__dirname, "..", "public", "sitemap.xml"), xml);
+
+  const robots = `User-agent: *
 Allow: /
 
 Disallow: /dashboard
@@ -92,10 +86,10 @@ Disallow: /dashboard
 Sitemap: ${SITE_URL}/sitemap.xml
 `;
 
-  fs.writeFileSync(path.join(publicDir, "robots.txt"), robots);
+  fs.writeFileSync(path.join(__dirname, "..", "public", "robots.txt"), robots);
 
   console.log(`✅ Sitemap + robots.txt generated (${SITE_URL})`);
-  console.log(`   ${4 + posts.length} URLs (${posts.length} bài viết)`);
+  console.log(`   ${3 + posts.length + tools.length} URLs (${posts.length} bài blog, ${tools.length} bài tools)`);
 }
 
 generateSitemap();

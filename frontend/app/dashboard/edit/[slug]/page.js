@@ -73,6 +73,7 @@ export default async function DashboardEditSlugPage({ params }) {
             slug={slug}
             initialContent={raw}
             fileName={`${slug}.md`}
+            pageType={type}
           />
         </AnimateOnView>
       </section>

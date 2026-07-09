@@ -2,7 +2,7 @@ import AppShell from "@/components/AppShell";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Không tìm thấy — longn.dev",
+  title: "Không tìm thấy — longnhx",
   description: "Trang bạn tìm kiếm không tồn tại.",
   robots: { index: false, follow: false },
 };

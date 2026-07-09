@@ -1,12 +1,12 @@
 #!/bin/bash
 # ===================================================
-# Script cài đặt VPS Debian cho longn.dev (Static Site)
+# Script cài đặt VPS Debian cho longnhx (Static Site)
 # Chạy với quyền root: sudo bash setup-vps.sh
 # ===================================================
 
 set -e
 
-echo "🚀 Bắt đầu cài đặt VPS cho longn.dev..."
+echo "🚀 Bắt đầu cài đặt VPS cho longnhx..."
 
 # ---- 1. Cập nhật hệ thống ----
 echo "📦 Cập nhật hệ thống..."
@@ -89,13 +89,13 @@ echo "   npm run build"
 echo "   # → HTML tĩnh sẽ ở thư mục out/"
 echo ""
 echo "3. Copy Nginx config:"
-echo "   sudo cp deploy/nginx.conf /etc/nginx/sites-available/longn.dev"
-echo "   sudo ln -s /etc/nginx/sites-available/longn.dev /etc/nginx/sites-enabled/"
+echo "   sudo cp deploy/nginx.conf /etc/nginx/sites-available/longnhx"
+echo "   sudo ln -s /etc/nginx/sites-available/longnhx /etc/nginx/sites-enabled/"
 echo "   sudo rm -f /etc/nginx/sites-enabled/default"
 echo "   sudo nginx -t && sudo systemctl reload nginx"
 echo ""
 echo "4. SSL (thay domain thật):"
-echo "   sudo certbot --nginx -d longn.dev -d www.longn.dev"
+echo "   sudo certbot --nginx -d longnhx -d www.longnhx"
 echo ""
 echo "📝 Để cập nhật bài viết:"
 echo "   1. Tạo file .md mới trong content/posts/"

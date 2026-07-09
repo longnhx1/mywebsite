@@ -15,12 +15,13 @@ export default function MarkdownEditor({
   slug = null,
   initialContent = "",
   fileName = "bai-viet-moi.md",
+  pageType: initialPageType = "posts",
 }) {
   const draftKey = getDraftKey(slug);
   const [content, setContent] = useState(initialContent || getNewPostTemplate());
   const [status, setStatus] = useState("");
   const [showPreview, setShowPreview] = useState(true);
-  const [pageType, setPageType] = useState("posts");
+  const [pageType, setPageType] = useState(initialPageType);
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
   const [publishing, setPublishing] = useState(false);

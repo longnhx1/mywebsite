@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const LINES = [
   {
     parts: [
-      { t: "eve@longn.dev", c: "kw" },
+      { t: "eve@longnhx", c: "kw" },
       { t: ":", c: "" },
       { t: "~", c: "str" },
       { t: "$ whoami" },
@@ -16,7 +16,7 @@ const LINES = [
   { parts: [{ t: "Nguyễn Huỳnh Long (eve)" }] },
   {
     parts: [
-      { t: "eve@longn.dev", c: "kw" },
+      { t: "eve@longnhx", c: "kw" },
       { t: ":", c: "" },
       { t: "~", c: "str" },
       { t: "$ cat contact.txt" },
@@ -42,7 +42,7 @@ const LINES = [
   },
   {
     parts: [
-      { t: "eve@longn.dev", c: "kw" },
+      { t: "eve@longnhx", c: "kw" },
       { t: ":", c: "" },
       { t: "~", c: "str" },
       { t: "$ " },

@@ -1,5 +1,5 @@
 /* ============================================================
-   longn.dev — Design System
+   longnhx — Design System
    Theme: Code Editor (light mode)
    ============================================================ */
 
@@ -44,9 +44,17 @@
   --shadow-window: 0 30px 70px -35px rgba(0, 0, 0, 0.55);
 }
 
-[data-theme="dark"] .dot.r { background: #c75050; }
-[data-theme="dark"] .dot.y { background: #c9a030; }
-[data-theme="dark"] .dot.g { background: #45a85c; }
+[data-theme="dark"] .dot.r {
+  background: #c75050;
+}
+
+[data-theme="dark"] .dot.y {
+  background: #c9a030;
+}
+
+[data-theme="dark"] .dot.g {
+  background: #45a85c;
+}
 
 /* ---------- Reset & Base ---------- */
 * {
@@ -61,6 +69,7 @@ html {
   html {
     scroll-behavior: auto;
   }
+
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
@@ -126,9 +135,17 @@ a {
   border-radius: 50%;
 }
 
-.dot.r { background: #e5645f; }
-.dot.y { background: #e8b34d; }
-.dot.g { background: #57c274; }
+.dot.r {
+  background: #e5645f;
+}
+
+.dot.y {
+  background: #e8b34d;
+}
+
+.dot.g {
+  background: #57c274;
+}
 
 .titlebar-path {
   font-family: var(--mono);
@@ -236,7 +253,9 @@ a {
   content: "// ";
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: var(--mono);
   font-weight: 600;
   margin: 0 0 0.3em;
@@ -387,9 +406,17 @@ p {
   flex: none;
 }
 
-.kw { color: var(--gold); }
-.str { color: var(--teal); }
-.tag-syntax { color: var(--rose); }
+.kw {
+  color: var(--gold);
+}
+
+.str {
+  color: var(--teal);
+}
+
+.tag-syntax {
+  color: var(--rose);
+}
 
 /* ---------- BLOG ---------- */
 .filter-row {
@@ -784,7 +811,8 @@ footer {
   max-width: none;
 }
 
-.prose ul, .prose ol {
+.prose ul,
+.prose ol {
   padding-left: 24px;
   margin: 16px 0;
 }
@@ -904,6 +932,7 @@ footer {
     opacity: 0;
     transform: translateY(18px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -915,6 +944,7 @@ footer {
     opacity: 0;
     transform: translateY(24px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -926,6 +956,7 @@ footer {
     opacity: 0;
     transform: translateX(-8px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -1350,4 +1381,3 @@ footer {
 .dash-actions .btn-sm {
   white-space: nowrap;
 }
-

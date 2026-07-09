@@ -19,7 +19,9 @@ export default function AppShell({ children }) {
     <WindowChrome crumb={crumb}>
       <TabBar onCrumbChange={setCrumb} />
       <div className="stage">{children}</div>
-      <footer>© longn.dev — xây bằng Next.js, nội dung viết bằng Markdown</footer>
+      <footer>
+        © longnhx — {new Date().getFullYear()}
+      </footer>
     </WindowChrome>
   );
 }

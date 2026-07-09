@@ -8,7 +8,7 @@ export const metadata = {
     template: "%s",
   },
   description:
-    "Không gian riêng của Long — ghi lại quá trình học, chia sẻ kiến thức kỹ thuật, và trưng bày project.",
+    "Không gian riêng của Long — ghi lại quá trình học, chia sẻ kiến thức, tools và phần mềm bổ ích.",
   keywords: [
     SITE_HOST,
     "blog",

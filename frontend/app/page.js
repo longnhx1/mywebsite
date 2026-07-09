@@ -23,13 +23,12 @@ export default function HomePage() {
         <div className="hero">
           <div className="hero-main">
             <AnimateOnView>
-              <p className="eyebrow">sinh viên ngành hệ thống thông tin</p>
+              <p className="eyebrow">nhật ký số của longnhx</p>
             </AnimateOnView>
 
             <AnimateOnView delay={80}>
               <h1>
                 Ghi lại quá trình học,
-                <br />
                 chia sẻ những gì học được
                 <span className="cursor"></span>
               </h1>

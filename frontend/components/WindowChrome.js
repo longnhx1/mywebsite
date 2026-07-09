@@ -11,7 +11,7 @@ export default function WindowChrome({ crumb, children }) {
             <span className="dot g"></span>
           </div>
           <div className="titlebar-path">
-            ~/longn.dev <span>{crumb}</span>
+            ~/longnhx <span>{crumb}</span>
           </div>
         </div>
         <ThemeToggle />

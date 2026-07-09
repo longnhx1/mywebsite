@@ -13,16 +13,10 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://longnhx.duckdns.org/projects</loc>
-    <lastmod>2026-07-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://longnhx.duckdns.org/tools</loc>
     <lastmod>2026-07-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://longnhx.duckdns.org/blog/ai-ho-tro-lap-trinh</loc>
@@ -45,6 +39,12 @@
   <url>
     <loc>https://longnhx.duckdns.org/blog/toi-uu-vong-lap</loc>
     <lastmod>2025-07-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://longnhx.duckdns.org/tools/discord-quest-completer</loc>
+    <lastmod>2026-07-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

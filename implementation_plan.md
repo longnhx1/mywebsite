@@ -1,4 +1,4 @@
-# Website cá nhân longn.dev — Đề xuất Tech Stack & Kế hoạch triển khai
+# Website cá nhân longnhx — Đề xuất Tech Stack & Kế hoạch triển khai
 
 > Dựa trên bản phác thảo hiện tại, yêu cầu deploy trên VPS Debian, quản lý nội dung qua CMS, bảo vệ admin bằng mật khẩu đơn giản, và tích hợp comment.
 
@@ -123,11 +123,11 @@ Strapi đã có sẵn hệ thống auth:
 # Frontend Next.js
 server {
     listen 443 ssl;
-    server_name longn.dev;
+    server_name longnhx;
     
     # SSL
-    ssl_certificate /etc/letsencrypt/live/longn.dev/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/longn.dev/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/longnhx/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/longnhx/privkey.pem;
     
     # Security headers
     add_header X-Frame-Options "SAMEORIGIN" always;
@@ -228,7 +228,7 @@ myweb/
 
 > [!IMPORTANT]
 > **Câu 1: Domain**
-> Bạn đã có domain `longn.dev` chưa? Hay đang dùng tên khác? Cần biết để config đúng.
+> Bạn đã có domain `longnhx` chưa? Hay đang dùng tên khác? Cần biết để config đúng.
 
 > [!IMPORTANT]
 > **Câu 2: VPS hiện tại**
