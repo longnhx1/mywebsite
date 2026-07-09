@@ -96,14 +96,26 @@ export default async function BlogPostPage({ params }) {
       />
 
       <section className="view page-enter" style={{ display: "block" }}>
-        {/* Nút quay lại */}
-        <Link
-          href="/blog"
-          className="btn"
-          style={{ marginBottom: "24px", display: "inline-block" }}
-        >
-          ← Quay về Blog
-        </Link>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
+          {/* Nút quay lại */}
+          <Link
+            href="/blog"
+            className="btn"
+          >
+            ← Quay về Blog
+          </Link>
+
+          {/* Nút Edit chỉ hiện ở Local */}
+          {process.env.NODE_ENV === "development" && (
+            <Link
+              href={`/dashboard/edit/${slug}`}
+              className="btn"
+              style={{ color: "var(--gold)", borderColor: "var(--gold)" }}
+            >
+              ✏️ Sửa bài viết
+            </Link>
+          )}
+        </div>
 
         <div className="post-container">
           {/* Header bài viết */}
