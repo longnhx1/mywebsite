@@ -160,11 +160,12 @@ export default function MarkdownEditor({
           const res = await fetch("/api/upload-image", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ image: base64, name: file.name || "pasted-image.png" }),
+            body: JSON.stringify({ image: base64, name: file.name || `pasted-${Date.now()}.png` }),
           });
           const data = await res.json();
           if (data.ok) {
-            const mdLink = `![${file.name || "image"}](${data.url})`;
+            const imgName = file.name?.replace(/\.[^.]+$/, "") || `pasted-${Date.now()}`;
+            const mdLink = `![${imgName}](${data.url})`;
             setContent((prev) => prev.slice(0, start) + mdLink + prev.slice(start));
             showStatus(`Đã paste ảnh: ${data.url}`);
           }
