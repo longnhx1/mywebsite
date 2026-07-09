@@ -607,9 +607,10 @@ p {
 .empty-msg {
   text-align: center;
   padding: 40px 0;
-  font-family: var(--mono);
+  font-family: var(--sans);
   font-size: 14px;
   color: var(--text-faint);
+  max-width: none;
 }
 
 /* ---------- POST META ROW ---------- */
