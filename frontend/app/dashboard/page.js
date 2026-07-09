@@ -18,6 +18,18 @@ function readRawJson(name) {
   } catch { return "[]"; }
 }
 
+function readMediaFiles() {
+  const dir = path.join(process.cwd(), "public", "images", "posts");
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir)
+    .filter((f) => /\.(png|jpe?g|gif|svg|webp|ico)$/i.test(f))
+    .map((f) => {
+      const stat = fs.statSync(path.join(dir, f));
+      return { name: f, url: `/images/posts/${f}`, size: stat.size };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
 export default function DashboardPage() {
   const posts = getAllPosts("posts").map((post) => ({
     slug: post.slug,
@@ -39,6 +51,8 @@ export default function DashboardPage() {
 
   const knowCount = posts.filter((p) => p.category === "know").length;
   const expCount = posts.filter((p) => p.category === "exp").length;
+
+  const mediaFiles = readMediaFiles();
 
   const dashStats = [
     { value: String(posts.length), label: "bài viết blog" },
@@ -62,6 +76,7 @@ export default function DashboardPage() {
             posts={posts}
             toolsPosts={toolsPosts}
             stats={dashStats}
+            mediaFiles={mediaFiles}
           />
         </AnimateOnView>
       </section>

@@ -1,25 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 
-export default function MediaGallery() {
-  const [files, setFiles] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function MediaGallery({ initialFiles = [] }) {
+  const [files, setFiles] = useState(initialFiles);
   const [copied, setCopied] = useState("");
-
-  const loadFiles = useCallback(async () => {
-    try {
-      const res = await fetch("/api/media");
-      const data = await res.json();
-      if (data.ok) setFiles(data.files);
-    } catch {
-      //
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => { loadFiles(); }, [loadFiles]);
 
   function formatSize(bytes) {
     if (bytes < 1024) return `${bytes}B`;
@@ -40,16 +25,21 @@ export default function MediaGallery() {
   async function handleDelete(name) {
     if (!window.confirm(`Xóa ${name}?`)) return;
     try {
-      const res = await fetch(`/api/media?name=${encodeURIComponent(name)}`, { method: "DELETE" });
+      const res = await fetch("/api/media", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name }),
+      });
       const data = await res.json();
-      if (data.ok) loadFiles();
-      else alert(`Lỗi: ${data.error}`);
+      if (data.ok) {
+        setFiles((prev) => prev.filter((f) => f.name !== name));
+      } else {
+        alert(`Lỗi: ${data.error}`);
+      }
     } catch (e) {
       alert(`Lỗi: ${e.message}`);
     }
   }
-
-  if (loading) return <p style={{ color: "var(--text-faint)", fontFamily: "var(--mono)", fontSize: "13px" }}>Đang tải...</p>;
 
   return (
     <div>

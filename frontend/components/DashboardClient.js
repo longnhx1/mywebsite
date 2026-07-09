@@ -18,7 +18,7 @@ const iconMap = {
   web: "🌐", game: "🎮", tool: "🔧", data: "📊",
 };
 
-export default function DashboardClient({ posts, toolsPosts, stats }) {
+export default function DashboardClient({ posts, toolsPosts, stats, mediaFiles = [] }) {
   const [activePanel, setActivePanel] = useState("posts");
   const router = useRouter();
 
@@ -187,7 +187,7 @@ export default function DashboardClient({ posts, toolsPosts, stats }) {
         {activePanel === "media" && (
           <div className="dash-panel">
             <h3>Media</h3>
-            <MediaGallery />
+            <MediaGallery initialFiles={mediaFiles} />
           </div>
         )}
 
