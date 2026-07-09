@@ -974,6 +974,20 @@ footer {
   vertical-align: text-bottom;
 }
 
+.terminal-link {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.2s, text-decoration-color 0.2s;
+  cursor: pointer;
+}
+
+.terminal-link:hover {
+  color: var(--gold) !important;
+  text-decoration-color: var(--gold);
+}
+
 .post-list-animated .post-link {
   animation: postRowIn 0.35s ease both;
 }

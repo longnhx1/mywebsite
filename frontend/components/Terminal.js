@@ -25,19 +25,19 @@ const LINES = [
   {
     parts: [
       { t: "Discord: ", c: "tag-syntax" },
-      { t: "https://discord.gg/NankzV8mRw", c: "str" },
+      { t: "https://discord.gg/NankzV8mRw", c: "str terminal-link", href: "https://discord.gg/NankzV8mRw" },
     ],
   },
   {
     parts: [
       { t: "Facebook: ", c: "tag-syntax" },
-      { t: "https://www.facebook.com/longnhk5/", c: "str" },
+      { t: "https://www.facebook.com/longnhk5/", c: "str terminal-link", href: "https://www.facebook.com/longnhk5/" },
     ],
   },
   {
     parts: [
       { t: "Email: ", c: "tag-syntax" },
-      { t: "nguyeenhuynhlong@gmail.com", c: "str" },
+      { t: "nguyeenhuynhlong@gmail.com", c: "str terminal-link", href: "mailto:nguyeenhuynhlong@gmail.com" },
     ],
   },
   {
@@ -51,15 +51,22 @@ const LINES = [
 ];
 
 function renderLine(line) {
-  return line.parts.map((part, i) =>
-    part.c ? (
+  return line.parts.map((part, i) => {
+    if (part.href) {
+      return (
+        <a key={i} href={part.href} className={part.c} target="_blank" rel="noopener noreferrer">
+          {part.t}
+        </a>
+      );
+    }
+    return part.c ? (
       <span key={i} className={part.c}>
         {part.t}
       </span>
     ) : (
       <span key={i}>{part.t}</span>
-    )
-  );
+    );
+  });
 }
 
 export default function Terminal() {
