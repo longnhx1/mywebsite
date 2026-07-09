@@ -5,7 +5,7 @@ date: "2026-07-09"
 description: "Discord Quest Completer"
 category: "know"
 categoryLabel: "Kiến thức"
-tags: ["discord"]
+tags: ["Discord"]
 ---
 
 
@@ -67,3 +67,5 @@ Nếu bạn cân nhắc sử dụng, nên hiểu rõ rủi ro (khả năng bị 
 
 - Repo GitHub: https://github.com/markterence/discord-quest-completer
 - Trang Releases: https://github.com/markterence/discord-quest-completer/releases
+
+

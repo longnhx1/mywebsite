@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
 import { useRouter } from "next/navigation";
+import MediaGallery from "@/components/MediaGallery";
 
 const sideItems = [
   { key: "posts", label: "📝 Bài viết" },
@@ -187,11 +187,7 @@ export default function DashboardClient({ posts, toolsPosts, stats }) {
         {activePanel === "media" && (
           <div className="dash-panel">
             <h3>Media</h3>
-            <p>
-              Ảnh bài viết lưu tại <code>public/images/posts/</code>. Chèn vào
-              Markdown bằng{" "}
-              <code>![mô tả](/images/posts/ten-anh.jpg)</code>.
-            </p>
+            <MediaGallery />
           </div>
         )}
 

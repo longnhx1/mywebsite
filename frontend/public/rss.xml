@@ -5,7 +5,7 @@
     <link>https://longnhx.duckdns.org</link>
     <description>Ghi lại quá trình học, chia sẻ những gì học được.</description>
     <language>vi</language>
-    <lastBuildDate>2026-07-09T17:40:23.329Z</lastBuildDate>
+    <lastBuildDate>2026-07-09T17:45:35.093Z</lastBuildDate>
     <atom:link href="https://longnhx.duckdns.org/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://longnhx.duckdns.org/favicon.png</url>
@@ -19,7 +19,7 @@
       <description>Discord Quest Completer</description>
       <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
       <category>Kiến thức</category>
-      <category>discord</category>
+      <category>Discord</category>
     </item>
     <item>
       <title>Tối ưu vòng lặp trong xử lý dữ liệu lớn</title>
