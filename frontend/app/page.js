@@ -36,8 +36,7 @@ export default function HomePage() {
             <AnimateOnView delay={160}>
               <p className="lede">
                 Đây là không gian riêng để lưu trải nghiệm học tập, viết lại
-                kiến thức kỹ thuật, và trưng bày những sản phẩm nhỏ mình tự tay
-                xây dựng.
+                kiến thức kỹ thuật, và chia sẻ các công cụ, ứng dụng, games thú vị.
               </p>
             </AnimateOnView>
 
@@ -46,8 +45,8 @@ export default function HomePage() {
                 <Link href="/blog" className="btn primary">
                   Đọc bài viết mới nhất
                 </Link>
-                <Link href="/projects" className="btn">
-                  Xem project
+                <Link href="/tools" className="btn">
+                  Xem Apps &amp; Games
                 </Link>
               </div>
             </AnimateOnView>
@@ -55,7 +54,7 @@ export default function HomePage() {
             <div className="stat-grid">
               {[
                 { n: stats.posts, l: "bài viết" },
-                { n: stats.projects, l: "project" },
+                { n: stats.projects, l: "apps & games" },
               ].map((stat, i) => (
                 <AnimateOnView key={stat.l} delay={320 + i * 80} className="stat-card-wrap">
                   <div className="stat-card">
