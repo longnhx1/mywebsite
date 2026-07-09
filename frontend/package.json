@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/generate-sitemap.js",
+    "prebuild": "node scripts/generate-sitemap.js && node scripts/generate-rss.js",
     "build": "next build",
     "start": "next start",
     "sitemap": "node scripts/generate-sitemap.js",
+    "rss": "node scripts/generate-rss.js",
     "lint": "eslint"
   },
   "dependencies": {

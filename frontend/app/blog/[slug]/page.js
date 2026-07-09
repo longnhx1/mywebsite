@@ -1,7 +1,9 @@
 import AppShell from "@/components/AppShell";
 import PostContent from "@/components/PostContent";
+import TableOfContents from "@/components/TableOfContents";
 import Giscus from "@/components/Giscus";
-import { getPostBySlug, getAllPostSlugs, formatDateFull } from "@/lib/posts";
+import { getPostBySlug, getAllPostSlugs, formatDateFull, estimateReadingTime } from "@/lib/posts";
+import { extractHeadings } from "@/lib/markdown";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import Link from "next/link";
 
@@ -87,6 +89,9 @@ export default async function BlogPostPage({ params }) {
     mainEntityOfPage: `${SITE_URL}/blog/${slug}`,
   };
 
+  const readTime = estimateReadingTime(post.content);
+  const headings = extractHeadings(post.content);
+
   return (
     <AppShell>
       {/* JSON-LD cho search engines */}
@@ -117,21 +122,16 @@ export default async function BlogPostPage({ params }) {
           )}
         </div>
 
-        <div className="post-container">
-          {/* Header bài viết */}
-          <article>
+        <div className="post-layout">
+          <article className="post-main">
           <header style={{ marginBottom: "32px" }}>
             <p className="eyebrow">{post.categoryLabel}</p>
             <h1>{post.title}</h1>
-            <p
-              style={{
-                fontFamily: "var(--mono)",
-                fontSize: "13px",
-                color: "var(--text-faint)",
-              }}
-            >
-              📅 {formatDateFull(post.date)}
-            </p>
+            <div className="post-meta-row">
+              <span>📅 {formatDateFull(post.date)}</span>
+              <span className="post-meta-dot">·</span>
+              <span>📖 {readTime} phút đọc</span>
+            </div>
             {post.tags?.length > 0 && (
               <div style={{ display: "flex", gap: 6, marginTop: 8, flexWrap: "wrap" }}>
                 {post.tags.map((tag) => (
@@ -147,9 +147,14 @@ export default async function BlogPostPage({ params }) {
           </div>
         </article>
 
-          {/* Giscus Comments */}
-          <Giscus slug={slug} />
+          {/* Table of Contents */}
+          <aside className="toc-sidebar">
+            <TableOfContents headings={headings} />
+          </aside>
         </div>
+
+        {/* Giscus Comments */}
+        <Giscus slug={slug} />
       </section>
     </AppShell>
   );

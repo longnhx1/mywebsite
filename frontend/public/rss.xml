@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>longnhx — nhật ký số</title>
+    <link>https://longnhx.duckdns.org</link>
+    <description>Ghi lại quá trình học, chia sẻ những gì học được.</description>
+    <language>vi</language>
+    <lastBuildDate>2026-07-09T17:40:23.329Z</lastBuildDate>
+    <atom:link href="https://longnhx.duckdns.org/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://longnhx.duckdns.org/favicon.png</url>
+      <title>longnhx — nhật ký số</title>
+      <link>https://longnhx.duckdns.org</link>
+    </image>
+    <item>
+      <title>Discord Quest Completer</title>
+      <link>https://longnhx.duckdns.org/blog/discord-quest-completer</link>
+      <guid isPermaLink="true">https://longnhx.duckdns.org/blog/discord-quest-completer</guid>
+      <description>Discord Quest Completer</description>
+      <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
+      <category>Kiến thức</category>
+      <category>discord</category>
+    </item>
+    <item>
+      <title>Tối ưu vòng lặp trong xử lý dữ liệu lớn</title>
+      <link>https://longnhx.duckdns.org/blog/toi-uu-vong-lap</link>
+      <guid isPermaLink="true">https://longnhx.duckdns.org/blog/toi-uu-vong-lap</guid>
+      <description>Một vài mẹo nhỏ giúp giảm thời gian chạy khi làm việc với tập dữ liệu hàng triệu dòng.</description>
+      <pubDate>Wed, 02 Jul 2025 00:00:00 GMT</pubDate>
+      <category>Kiến thức</category>
+
+    </item>
+    <item>
+      <title>Những gì mình học được sau đồ án phân tích thiết kế</title>
+      <link>https://longnhx.duckdns.org/blog/do-an-phan-tich-thiet-ke</link>
+      <guid isPermaLink="true">https://longnhx.duckdns.org/blog/do-an-phan-tich-thiet-ke</guid>
+      <description>Từ lúc vẽ use case đến lúc bảo vệ đồ án — những bài học không nằm trong slide.</description>
+      <pubDate>Sat, 28 Jun 2025 00:00:00 GMT</pubDate>
+      <category>Trải nghiệm</category>
+
+    </item>
+    <item>
+      <title>Dùng AI hỗ trợ lập trình sao cho hiệu quả</title>
+      <link>https://longnhx.duckdns.org/blog/ai-ho-tro-lap-trinh</link>
+      <guid isPermaLink="true">https://longnhx.duckdns.org/blog/ai-ho-tro-lap-trinh</guid>
+      <description>Cách đặt câu hỏi, kiểm tra lại code, và tránh phụ thuộc quá mức.</description>
+      <pubDate>Sat, 21 Jun 2025 00:00:00 GMT</pubDate>
+      <category>Kiến thức</category>
+
+    </item>
+    <item>
+      <title>Một chuyến đi và những dòng code viết trên tàu</title>
+      <link>https://longnhx.duckdns.org/blog/chuyen-di-va-code</link>
+      <guid isPermaLink="true">https://longnhx.duckdns.org/blog/chuyen-di-va-code</guid>
+      <description>Ghi chép ngắn về một chuyến đi xa và vài ý tưởng nảy ra dọc đường.</description>
+      <pubDate>Tue, 10 Jun 2025 00:00:00 GMT</pubDate>
+      <category>Trải nghiệm</category>
+
+    </item>
+  </channel>
+</rss>

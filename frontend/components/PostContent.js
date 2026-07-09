@@ -1,10 +1,17 @@
 "use client";
 
-// Component: PostContent — Render nội dung Markdown thành HTML
-// Dùng react-markdown với remark-gfm (hỗ trợ bảng, strikethrough, task list...)
-
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
+}
 
 export default function PostContent({ content }) {
   if (!content) {
@@ -15,15 +22,18 @@ export default function PostContent({ content }) {
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       components={{
-        // Fix hydration: react-markdown mặc định bọc code block trong <p>,
-        // nhưng HTML không cho phép <pre> nằm trong <p>.
-        // Giải pháp: override cả <pre> và <code>
+        h2({ children }) {
+          const text = extractText(children);
+          return <h2 id={slugify(text)}>{children}</h2>;
+        },
+        h3({ children }) {
+          const text = extractText(children);
+          return <h3 id={slugify(text)}>{children}</h3>;
+        },
         pre({ children }) {
           return <pre className="code-block">{children}</pre>;
         },
         code({ className, children, ...props }) {
-          // Nếu code nằm trong <pre> (code block), giữ nguyên
-          // Nếu code inline (không có className), style riêng
           const isInline = !className;
           if (isInline) {
             return (
@@ -38,11 +48,9 @@ export default function PostContent({ content }) {
             </code>
           );
         },
-        // Custom render cho blockquote
         blockquote({ children }) {
           return <blockquote className="custom-quote">{children}</blockquote>;
         },
-        // Custom render cho links — mở tab mới
         a({ href, children }) {
           return (
             <a href={href} target="_blank" rel="noopener noreferrer">
@@ -55,4 +63,13 @@ export default function PostContent({ content }) {
       {content}
     </ReactMarkdown>
   );
+}
+
+function extractText(children) {
+  if (typeof children === "string") return children;
+  if (Array.isArray(children)) {
+    return children.map((c) => extractText(c)).join("");
+  }
+  if (children?.props?.children) return extractText(children.props.children);
+  return "";
 }
