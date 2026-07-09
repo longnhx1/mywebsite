@@ -143,6 +143,36 @@ export default function MarkdownEditor({
     e.target.value = "";
   }, [showStatus]);
 
+  // Paste image from clipboard
+  const handlePaste = useCallback(async (e) => {
+    const items = e.clipboardData?.items;
+    if (!items) return;
+    for (const item of items) {
+      if (item.type.startsWith("image/")) {
+        e.preventDefault();
+        const file = item.getAsFile();
+        if (!file) continue;
+        const reader = new FileReader();
+        reader.onload = async (ev) => {
+          const base64 = ev.target.result;
+          const res = await fetch("/api/upload-image", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ image: base64, name: file.name || "pasted-image.png" }),
+          });
+          const data = await res.json();
+          if (data.ok) {
+            const mdLink = `![${file.name || "image"}](${data.url})`;
+            setContent((prev) => prev + "\n" + mdLink);
+            showStatus(`Đã paste ảnh: ${data.url}`);
+          }
+        };
+        reader.readAsDataURL(file);
+        break;
+      }
+    }
+  }, [showStatus]);
+
   // Drag & drop image
   const handleDrop = useCallback(async (e) => {
     e.preventDefault();
@@ -309,6 +339,7 @@ export default function MarkdownEditor({
             onChange={(e) => setContent(e.target.value)}
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()}
+            onPaste={handlePaste}
             spellCheck={false}
             aria-label="Soạn Markdown"
           />
