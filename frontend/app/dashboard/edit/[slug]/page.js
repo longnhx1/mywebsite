@@ -9,12 +9,15 @@ import {
 } from "@/lib/posts";
 
 export function generateStaticParams() {
-  return getAllPostSlugs().map((slug) => ({ slug }));
+  const postSlugs = getAllPostSlugs("posts");
+  const toolSlugs = getAllPostSlugs("tools");
+  const allSlugs = [...new Set([...postSlugs, ...toolSlugs])];
+  return allSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = getPostBySlug(slug, "posts") || getPostBySlug(slug, "tools");
   return {
     title: post
       ? `Sửa: ${post.title} — Dashboard`
@@ -25,8 +28,17 @@ export async function generateMetadata({ params }) {
 
 export default async function DashboardEditSlugPage({ params }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
-  const raw = getPostRawBySlug(slug);
+  
+  // Kiểm tra posts trước, nếu không có thì kiểm tra tools
+  let post = getPostBySlug(slug, "posts");
+  let raw = getPostRawBySlug(slug, "posts");
+  let type = "posts";
+  
+  if (!post) {
+    post = getPostBySlug(slug, "tools");
+    raw = getPostRawBySlug(slug, "tools");
+    type = "tools";
+  }
 
   if (!post || !raw) {
     return (
@@ -49,11 +61,10 @@ export default async function DashboardEditSlugPage({ params }) {
           <Link href="/dashboard" className="btn" style={{ marginBottom: "20px" }}>
             ← Dashboard
           </Link>
-          <p className="eyebrow">soạn thảo</p>
+          <p className="eyebrow">soạn thảo {type === "tools" ? "apps & games" : "blog"}</p>
           <h2>{post.title}</h2>
           <p>
-            Chỉnh sửa file <code>{slug}.md</code> — tải về và thay thế trên
-            VPS / máy local.
+            Chỉnh sửa file <code>{slug}.md</code>. Ấn nút Publish để lưu đè.
           </p>
         </AnimateOnView>
 
