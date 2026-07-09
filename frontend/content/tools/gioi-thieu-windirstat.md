@@ -1,8 +1,8 @@
 ---
 title: WinDirStat – Công cụ phân tích và dọn dẹp dung lượng ổ đĩa cho Windows
 slug: gioi-thieu-windirstat
-category: know
-categoryLabel: Kiến thức
+category: tools
+categoryLabel: Tools
 date: '2026-07-09'
 description: >-
   Tìm hiểu về WinDirStat, phần mềm miễn phí, mã nguồn mở giúp trực quan hóa

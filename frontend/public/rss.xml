@@ -5,7 +5,7 @@
     <link>https://longnhx.duckdns.org</link>
     <description>Ghi lại quá trình học, chia sẻ những gì học được.</description>
     <language>vi</language>
-    <lastBuildDate>2026-07-09T18:34:24.671Z</lastBuildDate>
+    <lastBuildDate>2026-07-09T18:40:59.325Z</lastBuildDate>
     <atom:link href="https://longnhx.duckdns.org/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://longnhx.duckdns.org/favicon.png</url>
@@ -14,11 +14,11 @@
     </image>
     <item>
       <title>Discord Quest Completer</title>
-      <link>https://longnhx.duckdns.org/blog/discord-quest-completer</link>
-      <guid isPermaLink="true">https://longnhx.duckdns.org/blog/discord-quest-completer</guid>
+      <link>https://longnhx.duckdns.org/tools/discord-quest-completer</link>
+      <guid isPermaLink="true">https://longnhx.duckdns.org/tools/discord-quest-completer</guid>
       <description>Discord Quest Completer</description>
       <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
-      <category>Kiến thức</category>
+      <category>Tools</category>
       <category>Discord</category>
     </item>
     <item>
@@ -27,17 +27,17 @@
       <guid isPermaLink="true">https://longnhx.duckdns.org/blog/gioi-thieu-krita</guid>
       <description>Tìm hiểu về Krita, phần mềm vẽ digital painting miễn phí, mã nguồn mở, được các họa sĩ truyện tranh, concept artist và ngành VFX tin dùng.</description>
       <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
-      <category>Kiến thức</category>
+      <category>Apps</category>
       <category>apps</category>
       <category>designer</category>
     </item>
     <item>
       <title>WinDirStat – Công cụ phân tích và dọn dẹp dung lượng ổ đĩa cho Windows</title>
-      <link>https://longnhx.duckdns.org/blog/gioi-thieu-windirstat</link>
-      <guid isPermaLink="true">https://longnhx.duckdns.org/blog/gioi-thieu-windirstat</guid>
+      <link>https://longnhx.duckdns.org/tools/gioi-thieu-windirstat</link>
+      <guid isPermaLink="true">https://longnhx.duckdns.org/tools/gioi-thieu-windirstat</guid>
       <description>Tìm hiểu về WinDirStat, phần mềm miễn phí, mã nguồn mở giúp trực quan hóa dung lượng ổ đĩa Windows bằng treemap, hỗ trợ tìm và dọn file lớn nhanh chóng.</description>
       <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
-      <category>Kiến thức</category>
+      <category>Tools</category>
       <category>apps</category>
       <category>windows</category>
       <category>utility</category>

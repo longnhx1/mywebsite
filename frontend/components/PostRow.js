@@ -7,8 +7,12 @@ export default function PostRow({
   tags,
   date,
 }) {
-  const pillClass =
-    category === "exp" ? "tag-pill exp" : "tag-pill";
+  const catColor =
+    category === "exp" ? "exp" :
+    category === "apps" ? "apps" :
+    category === "tools" ? "tools" :
+    category === "games" ? "games" : "";
+  const pillClass = catColor ? `tag-pill ${catColor}` : "tag-pill";
 
   return (
     <div className="post-row" data-cat={category}>

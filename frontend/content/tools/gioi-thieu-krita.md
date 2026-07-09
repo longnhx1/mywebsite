@@ -1,8 +1,8 @@
 ---
 title: Krita – Phần mềm vẽ kỹ thuật số mã nguồn mở mạnh mẽ
 slug: gioi-thieu-krita
-category: know
-categoryLabel: Kiến thức
+category: apps
+categoryLabel: Apps
 date: '2026-07-09'
 description: >-
   Tìm hiểu về Krita, phần mềm vẽ digital painting miễn phí, mã nguồn mở, được

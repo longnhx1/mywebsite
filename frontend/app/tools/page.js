@@ -36,7 +36,16 @@ export default function ToolsPage() {
           </p>
         </AnimateOnView>
 
-        <BlogContent posts={posts} baseRoute="/tools" />
+        <BlogContent
+          posts={posts}
+          baseRoute="/tools"
+          filters={[
+            { key: "all", label: "Tất cả" },
+            { key: "apps", label: "Apps" },
+            { key: "tools", label: "Tools" },
+            { key: "games", label: "Games" },
+          ]}
+        />
       </section>
     </AppShell>
   );

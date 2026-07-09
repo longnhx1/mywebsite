@@ -822,6 +822,18 @@ p {
   background: var(--rose);
 }
 
+.tag-pill.apps {
+  background: #2d7fb9;
+}
+
+.tag-pill.tools {
+  background: #8b5cf6;
+}
+
+.tag-pill.games {
+  background: #e05a3a;
+}
+
 .post-row .date {
   font-family: var(--mono);
   font-size: 12px;

@@ -3,8 +3,8 @@ title: "Discord Quest Completer"
 slug: "discord-quest-completer"
 date: "2026-07-09"
 description: "Discord Quest Completer"
-category: "know"
-categoryLabel: "Kiến thức"
+category: "tools"
+categoryLabel: "Tools"
 tags: ["Discord"]
 ---
 

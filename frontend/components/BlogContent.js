@@ -6,18 +6,20 @@ import PostRow from "@/components/PostRow";
 
 const PAGE_SIZE = 5;
 
-export default function BlogContent({ posts, baseRoute = "/blog" }) {
+const defaultFilters = [
+  { key: "all", label: "Tất cả" },
+  { key: "exp", label: "Trải nghiệm" },
+  { key: "know", label: "Kiến thức" },
+];
+
+export default function BlogContent({ posts, baseRoute = "/blog", filters: customFilters }) {
   const [activeFilter, setActiveFilter] = useState("all");
   const [search, setSearch] = useState("");
   const [activeTag, setActiveTag] = useState("");
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [listKey, setListKey] = useState(0);
 
-  const filters = [
-    { key: "all", label: "Tất cả" },
-    { key: "exp", label: "Trải nghiệm" },
-    { key: "know", label: "Kiến thức" },
-  ];
+  const filters = customFilters || defaultFilters;
 
   const allTags = useMemo(() => {
     const tagSet = new Set();
