@@ -4,16 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const tabs = [
-  { name: "Home", ext: ".tsx", path: "/", crumb: "— home.tsx" },
-  { name: "Blog", ext: ".md", path: "/blog", crumb: "— blog.md" },
-  { name: "Apps & Games", ext: ".md", path: "/tools", crumb: "— apps-games.md" }
+  { name: "Home", ext: ".tsx", path: "/", crumb: "- home.tsx" },
+  { name: "Blog", ext: ".md", path: "/blog", crumb: "- blog.md" },
+  { name: "Apps & Games", ext: ".md", path: "/tools", crumb: "- apps-games.md" }
 ];
 
-const dashboardTab = { name: "Dashboard", ext: ".admin", path: "/dashboard", crumb: "— dashboard.admin" };
+const dashboardTab = { name: "Dashboard", ext: ".admin", path: "/dashboard", crumb: "- dashboard.admin" };
 
 export function getTabForPath(pathname) {
   if (pathname.startsWith("/dashboard/edit")) {
-    return { crumb: "— editor.md" };
+    return { crumb: "- editor.md" };
   }
   const tab = tabs.find((t) =>
     t.path === "/" ? pathname === "/" : pathname.startsWith(t.path)
