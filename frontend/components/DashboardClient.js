@@ -7,8 +7,7 @@ import { useRouter } from "next/navigation";
 
 const sideItems = [
   { key: "posts", label: "📝 Bài viết" },
-  { key: "projects", label: "📦 Projects" },
-  { key: "tools", label: "🔧 Tools" },
+  { key: "apps-games", label: "📦 Apps & Games" },
   { key: "editor", label: "✏️ Soạn Markdown", href: "/dashboard/edit" },
   { key: "media", label: "🖼️ Media" },
   { key: "stats", label: "📊 Thống kê" },
@@ -132,10 +131,12 @@ export default function DashboardClient({ posts, projects, rawProjects, tools, r
           </>
         )}
 
-        {activePanel === "projects" && (
+        {activePanel === "apps-games" && (
           <div className="dash-panel">
-            <h3>📦 Projects</h3>
-            <p>Dữ liệu lưu tại <code>content/projects.json</code>. Sửa JSON và rebuild.</p>
+            <h3>📦 Apps, Games & Tools</h3>
+            <p>Dữ liệu Apps/Games lưu tại <code>content/projects.json</code>, Tools lưu tại <code>content/tools.json</code>. Sửa file JSON và rebuild để cập nhật.</p>
+            
+            <h4>Apps & Games</h4>
             <table>
               <thead>
                 <tr>
@@ -156,17 +157,8 @@ export default function DashboardClient({ posts, projects, rawProjects, tools, r
                 ))}
               </tbody>
             </table>
-            <details style={{ marginTop: 16 }}>
-              <summary>Raw JSON</summary>
-              <pre className="json-preview">{rawProjects}</pre>
-            </details>
-          </div>
-        )}
-
-        {activePanel === "tools" && (
-          <div className="dash-panel">
-            <h3>🔧 Tools</h3>
-            <p>Dữ liệu lưu tại <code>content/tools.json</code>. Sửa JSON và rebuild.</p>
+            
+            <h4 style={{ marginTop: '2rem' }}>Công cụ phần mềm</h4>
             <table>
               <thead>
                 <tr>
@@ -189,8 +181,13 @@ export default function DashboardClient({ posts, projects, rawProjects, tools, r
                 ))}
               </tbody>
             </table>
+            
             <details style={{ marginTop: 16 }}>
-              <summary>Raw JSON</summary>
+              <summary>Raw JSON (Apps & Games)</summary>
+              <pre className="json-preview">{rawProjects}</pre>
+            </details>
+            <details style={{ marginTop: 16 }}>
+              <summary>Raw JSON (Tools)</summary>
               <pre className="json-preview">{rawTools}</pre>
             </details>
           </div>

@@ -5,10 +5,7 @@ import matter from "gray-matter";
 import PostContent from "@/components/PostContent";
 import { getDraftKey, getNewPostTemplate } from "@/lib/markdown-template";
 
-const pageTypes = [
-  { key: "posts", label: "📝 Blog" },
-  { key: "tools", label: "🔧 Apps & Tools" },
-];
+// Posts are always saved as blog posts
 
 export default function MarkdownEditor({
   slug = null,
@@ -19,7 +16,6 @@ export default function MarkdownEditor({
   const [content, setContent] = useState(initialContent || getNewPostTemplate());
   const [status, setStatus] = useState("");
   const [showPreview, setShowPreview] = useState(true);
-  const [pageType, setPageType] = useState("posts");
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
   const [publishing, setPublishing] = useState(false);
@@ -212,34 +208,24 @@ export default function MarkdownEditor({
         body: JSON.stringify({
           title,
           rawContent: content,
-          type: pageType,
+          type: "posts",
         }),
       });
       const data = await res.json();
       if (data.ok) {
-        showStatus(`✅ Đã publish! /${pageType}/${data.slug}`);
+        showStatus(`✅ Đã publish! /blog/${data.slug}`);
         try { localStorage.removeItem(draftKey); } catch { /* ignore */ }
       } else showStatus(`❌ ${data.error}`);
     } catch (e) {
       showStatus(`❌ Lỗi: ${e.message}`);
     }
     setPublishing(false);
-  }, [content, previewBody, pageType, tags, getTitle, draftKey, showStatus]);
+  }, [content, previewBody, tags, getTitle, draftKey, showStatus]);
 
   return (
     <div className="md-editor">
       <div className="md-editor-toolbar">
         <div className="md-editor-actions">
-          <select
-            className="md-editor-select"
-            value={pageType}
-            onChange={(e) => setPageType(e.target.value)}
-          >
-            {pageTypes.map((t) => (
-              <option key={t.key} value={t.key}>{t.label}</option>
-            ))}
-          </select>
-
           <button
             type="button"
             className="btn primary"
