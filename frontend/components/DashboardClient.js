@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 
+import { useRouter } from "next/navigation";
+
 const sideItems = [
   { key: "posts", label: "📝 Bài viết" },
   { key: "projects", label: "📦 Projects" },
@@ -19,6 +21,26 @@ const iconMap = {
 
 export default function DashboardClient({ posts, projects, rawProjects, tools, rawTools, stats }) {
   const [activePanel, setActivePanel] = useState("posts");
+  const router = useRouter();
+
+  const handleDelete = async (slug, title) => {
+    if (!window.confirm(`Bạn có chắc chắn muốn xóa bài viết "${title}" không? Hành động này không thể hoàn tác.`)) {
+      return;
+    }
+    
+    try {
+      const res = await fetch(`/api/delete?slug=${slug}&type=posts`, { method: "DELETE" });
+      const data = await res.json();
+      if (data.ok) {
+        alert("Đã xóa bài viết thành công!");
+        router.refresh();
+      } else {
+        alert(`Lỗi khi xóa: ${data.error}`);
+      }
+    } catch (error) {
+      alert(`Lỗi: ${error.message}`);
+    }
+  };
 
   return (
     <div className="dash-grid">
@@ -92,6 +114,13 @@ export default function DashboardClient({ posts, projects, rawProjects, tools, r
                       >
                         Sửa
                       </Link>
+                      <button
+                        onClick={() => handleDelete(post.slug, post.title)}
+                        className="btn btn-sm"
+                        style={{ color: "var(--danger, #ff4d4f)", borderColor: "var(--danger, #ff4d4f)" }}
+                      >
+                        Xóa
+                      </button>
                       <Link href={`/blog/${post.slug}`} className="btn btn-sm">
                         Xem
                       </Link>

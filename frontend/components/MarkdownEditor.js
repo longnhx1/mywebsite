@@ -211,10 +211,8 @@ export default function MarkdownEditor({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title,
-          content: previewBody,
+          rawContent: content,
           type: pageType,
-          tags,
-          description: (() => { try { return matter(content).data.description; } catch { return ""; } })(),
         }),
       });
       const data = await res.json();
