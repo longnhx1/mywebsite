@@ -10,6 +10,7 @@ export default function HomePage() {
   const recentPosts = posts.slice(0, 3);
 
   const tools = getAllPosts("tools");
+  const recentTools = tools.slice(0, 3);
 
   const stats = {
     posts: posts.length,
@@ -97,6 +98,35 @@ export default function HomePage() {
             </div>
             <Link href="/blog" className="btn" style={{ marginTop: "20px" }}>
               Xem tất cả bài viết →
+            </Link>
+          </AnimateOnView>
+        )}
+
+        {recentTools.length > 0 && (
+          <AnimateOnView className="recent-section" style={{ marginTop: "60px" }}>
+            <p className="eyebrow">góc ứng dụng</p>
+            <h2>Apps & Games mới nhất</h2>
+            <div className="post-list">
+              {recentTools.map((post, index) => (
+                <Link
+                  key={post.slug}
+                  href={`/tools/${post.slug}`}
+                  className="post-link"
+                >
+                  <PostRow
+                    number={String(index + 1).padStart(2, "0")}
+                    title={post.title}
+                    description={post.description}
+                    category={post.category}
+                    categoryLabel={post.categoryLabel || "Apps & Games"}
+                    tags={post.tags}
+                    date={formatDate(post.date)}
+                  />
+                </Link>
+              ))}
+            </div>
+            <Link href="/tools" className="btn" style={{ marginTop: "20px" }}>
+              Xem tất cả Apps & Games →
             </Link>
           </AnimateOnView>
         )}
