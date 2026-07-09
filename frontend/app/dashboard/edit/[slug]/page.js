@@ -56,7 +56,7 @@ export default async function DashboardEditSlugPage({ params }) {
 
   return (
     <AppShell>
-      <section className="view page-enter md-editor-page" style={{ display: "block" }}>
+      <section className="view page-enter md-editor-page" style={{ display: "block" }} id="dashboard">
         <AnimateOnView>
           <Link href="/dashboard" className="btn" style={{ marginBottom: "20px" }}>
             ← Dashboard
