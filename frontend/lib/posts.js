@@ -27,13 +27,16 @@ function readPostsFrom(dir) {
         date: data.date || "",
         cover: data.cover || "",
         tags: data.tags || [],
+        order: data.order ?? 0,
         content,
       };
     })
     .sort((a, b) => {
-      if (!a.date) return 1;
-      if (!b.date) return -1;
-      return new Date(b.date) - new Date(a.date);
+      const dateDiff = new Date(b.date || 0) - new Date(a.date || 0);
+      if (dateDiff !== 0) return dateDiff;
+      const orderDiff = (a.order ?? 0) - (b.order ?? 0);
+      if (orderDiff !== 0) return orderDiff;
+      return a.title.localeCompare(b.title);
     });
 }
 
