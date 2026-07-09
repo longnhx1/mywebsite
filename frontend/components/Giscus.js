@@ -4,10 +4,10 @@ import { useEffect, useRef } from "react";
 import { useTheme } from "./ThemeProvider";
 
 const GISCUS_CONFIG = {
-  repo: "longn-dev/blog-comments",
-  repoId: "",
-  category: "Blog Comments",
-  categoryId: "",
+  repo: "longnhx1/mywebsite",
+  repoId: "R_kgDOTTSxAA",
+  category: "General",
+  categoryId: "DIC_kwDOTTSxAM4DA1lH",
 };
 
 const isConfigured =
@@ -29,12 +29,11 @@ export default function Giscus({ slug }) {
     script.setAttribute("data-repo-id", GISCUS_CONFIG.repoId);
     script.setAttribute("data-category", GISCUS_CONFIG.category);
     script.setAttribute("data-category-id", GISCUS_CONFIG.categoryId);
-    script.setAttribute("data-mapping", "specific");
-    script.setAttribute("data-term", slug);
+    script.setAttribute("data-mapping", "pathname");
     script.setAttribute("data-strict", "0");
     script.setAttribute("data-reactions-enabled", "1");
     script.setAttribute("data-emit-metadata", "0");
-    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-input-position", "bottom");
     script.setAttribute("data-theme", giscusTheme);
     script.setAttribute("data-lang", "vi");
     script.setAttribute("data-loading", "lazy");
