@@ -107,6 +107,17 @@ a {
   box-shadow: var(--shadow-window);
 }
 
+.window:has(#dashboard) {
+  max-width: 1400px;
+}
+
+@media (max-width: 1480px) {
+  .window:has(#dashboard) {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
 .titlebar {
   display: flex;
   align-items: center;

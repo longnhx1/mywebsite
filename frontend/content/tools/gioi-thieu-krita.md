@@ -12,7 +12,7 @@ tags:
   - apps
   - designer
 ---
-<img src="/images/posts/calligrakrita-base.svg" style="border-radius: 10px;" width="400" alt="Krita giao diện">
+<img src="/images/posts/calligrakrita-base.svg" style="border-radius: 10px; display: block; margin: 0 auto; width: 400px;" alt="Krita giao diện"> 
 
 ## Giới thiệu
 
@@ -33,7 +33,8 @@ Windows, macOS, Linux, Android, ChromeOS. Có thể tải miễn phí từ trang
 - Tối ưu cho bảng vẽ (tablet), thao tác nhanh bằng Pop-up Palette.
 - Hỗ trợ scripting để tự động hóa quy trình làm việc.
 
-<img src="/images/posts/images.jpg" style="border-radius: 10px;" alt="Krita giao diện">
+
+![application-screenshot.webp](/images/posts/application-screenshot.webp)
 
 ## Giấy phép
 
