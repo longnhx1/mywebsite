@@ -37,12 +37,18 @@ Discord phát hiện "Registered Games" chủ yếu dựa vào **tên file thự
 - Không cần cài anti-cheat hoặc phần mềm đi kèm của game.
 - Vẫn có thể "khoe" trạng thái đang chơi game trên Discord nếu muốn.
 
-## Cài đặt
+## Yêu cầu:
+- Cần cài **WebView2** (đã có sẵn trên Windows 11; Windows cũ hơn có thể cần tải thủ công).
+- Hiện chỉ hỗ trợ **Windows** (chưa hỗ trợ Linux/macOS).
+
+## Cài đặt và sử dụng
 
 1. Tải bản build sẵn từ trang [Releases](https://github.com/markterence/discord-quest-completer/releases), hoặc tự build từ mã nguồn.
 2. Giải nén vào thư mục mà bạn có quyền ghi/thực thi (ứng dụng sẽ tạo file game giả trong chính thư mục đó).
-3. Cần cài **WebView2** (đã có sẵn trên Windows 11; Windows cũ hơn có thể cần tải thủ công).
-4. Hiện chỉ hỗ trợ **Windows** (chưa hỗ trợ Linux/macOS).
+3. Chạy file `discord-quest-completer.exe`
+4. Tìm kiếm phần mềm, game,... mà bạn muốn làm nhiều quest:
+5. Bấm nút `Play` để tools bắt đầu chạy và tạo 1 file .exe giả.
+![image.png](/images/posts/image.png)
 
 ## Một vài lưu ý quan trọng
 
@@ -67,5 +73,6 @@ Nếu bạn cân nhắc sử dụng, nên hiểu rõ rủi ro (khả năng bị 
 
 - Repo GitHub: https://github.com/markterence/discord-quest-completer
 - Trang Releases: https://github.com/markterence/discord-quest-completer/releases
+
 
 

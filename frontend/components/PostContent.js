@@ -2,6 +2,7 @@
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 function slugify(text) {
   return text
@@ -13,6 +14,27 @@ function slugify(text) {
     .replace(/(^-|-$)+/g, "");
 }
 
+function extractText(children) {
+  if (typeof children === "string") return children;
+  if (Array.isArray(children)) {
+    return children.map((c) => extractText(c)).join("");
+  }
+  if (children?.props?.children) return extractText(children.props.children);
+  return "";
+}
+
+function parseImgSize(src) {
+  const match = src?.match(/^(.*?)#(\d+)x(\d+)$/);
+  if (match) {
+    return { src: match[1], width: match[2], height: match[3] };
+  }
+  const qMatch = src?.match(/^(.*?)\?w=(\d+)(?:&h=(\d+))?$/);
+  if (qMatch) {
+    return { src: qMatch[1], width: qMatch[2], height: qMatch[3] || undefined };
+  }
+  return { src };
+}
+
 export default function PostContent({ content }) {
   if (!content) {
     return <p>Không có nội dung.</p>;
@@ -21,6 +43,7 @@ export default function PostContent({ content }) {
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeRaw]}
       components={{
         h2({ children }) {
           const text = extractText(children);
@@ -58,18 +81,22 @@ export default function PostContent({ content }) {
             </a>
           );
         },
+        img({ src, alt, ...props }) {
+          const { src: cleanSrc, width, height } = parseImgSize(src);
+          return (
+            <img
+              src={cleanSrc}
+              alt={alt || ""}
+              width={width}
+              height={height}
+              loading="lazy"
+              {...props}
+            />
+          );
+        },
       }}
     >
       {content}
     </ReactMarkdown>
   );
-}
-
-function extractText(children) {
-  if (typeof children === "string") return children;
-  if (Array.isArray(children)) {
-    return children.map((c) => extractText(c)).join("");
-  }
-  if (children?.props?.children) return extractText(children.props.children);
-  return "";
 }
