@@ -1,0 +1,157 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.header h2 {
+  margin: 0 0 5px 0;
+  font-size: 24px;
+  color: var(--text);
+}
+
+.description {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.searchInput {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  min-width: 250px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.searchInput:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(15, 125, 108, 0.1);
+}
+
+[data-theme="dark"] .searchInput:focus {
+  box-shadow: 0 0 0 3px rgba(79, 184, 166, 0.15);
+}
+
+.tableWrapper {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow-x: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th {
+  padding: 16px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elev-2);
+}
+
+.table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr {
+  transition: background var(--transition-fast);
+}
+
+.table tbody tr:hover {
+  background: var(--quote-bg);
+}
+
+.titleCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.titleText {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.slugText {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: var(--chip-active-bg);
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.dateCell {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.actionsCol {
+  text-align: right;
+  width: 100px;
+}
+
+.editBtn {
+  display: inline-block;
+  padding: 6px 14px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.editBtn:hover {
+  background: var(--teal);
+  color: #fff;
+  border-color: var(--teal);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px !important;
+  color: var(--text-faint);
+  font-style: italic;
+}

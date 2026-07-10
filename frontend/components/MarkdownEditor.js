@@ -4,11 +4,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import matter from "gray-matter";
 import PostContent from "@/components/PostContent";
 import { getDraftKey, getNewPostTemplate } from "@/lib/markdown-template";
+import styles from "./MarkdownEditor.module.css";
 
-// Posts are always saved as blog posts, tools as apps & games
 const pageTypes = [
   { key: "posts", label: "📝 Blog" },
-  { key: "tools", label: "🔧 Apps & Games" },
+  { key: "tools", label: "🔧 Apps & Tools" },
 ];
 
 export default function MarkdownEditor({
@@ -16,17 +16,42 @@ export default function MarkdownEditor({
   initialContent = "",
   fileName = "bai-viet-moi.md",
   pageType: initialPageType = "posts",
+  onSaved = () => {}
 }) {
   const draftKey = getDraftKey(slug);
   const [content, setContent] = useState(initialContent || getNewPostTemplate());
   const [status, setStatus] = useState("");
-  const [showPreview, setShowPreview] = useState(true);
   const [pageType, setPageType] = useState(initialPageType);
   const [tags, setTags] = useState([]);
   const [tagInput, setTagInput] = useState("");
   const [publishing, setPublishing] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  
+  // Responsive tabs state
+  const [activeTab, setActiveTab] = useState("write"); // 'write', 'preview', or 'split'
+  
   const fileInputRef = useRef(null);
   const mdInputRef = useRef(null);
+
+  // Check window size to determine if we should default to split or write
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 900) {
+        if (activeTab !== "split") setActiveTab("split");
+      } else {
+        if (activeTab === "split") setActiveTab("write");
+      }
+    };
+    handleResize(); // initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [activeTab]);
+
+  // Handle content sync when props change (e.g. user selects a different post to edit)
+  useEffect(() => {
+    setContent(initialContent || getNewPostTemplate());
+    setPageType(initialPageType);
+  }, [initialContent, initialPageType, slug]);
 
   // Parse frontmatter on content change for tags
   useEffect(() => {
@@ -71,31 +96,6 @@ export default function MarkdownEditor({
     setStatus(msg);
     setTimeout(() => setStatus(""), duration);
   }, []);
-
-  const copyToClipboard = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(content);
-      showStatus("Đã copy vào clipboard!");
-    } catch { showStatus("Không copy được."); }
-  }, [content, showStatus]);
-
-  const downloadFile = useCallback(() => {
-    const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = fileName;
-    a.click();
-    URL.revokeObjectURL(url);
-    showStatus(`Đã tải ${fileName}`);
-  }, [content, fileName, showStatus]);
-
-  const resetContent = useCallback(() => {
-    if (!window.confirm("Đặt lại nội dung về bản gốc?")) return;
-    setContent(initialContent || getNewPostTemplate());
-    try { localStorage.removeItem(draftKey); } catch { /* ignore */ }
-    showStatus("Đã đặt lại.");
-  }, [initialContent, draftKey, showStatus]);
 
   const clearDraft = useCallback(() => {
     try { localStorage.removeItem(draftKey); showStatus("Đã xóa nháp."); }
@@ -174,11 +174,22 @@ export default function MarkdownEditor({
         break;
       }
     }
-  }, [showStatus]);
+  }, [showStatus, content]);
 
   // Drag & drop image
+  const handleDragOver = useCallback((e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e) => {
+    e.preventDefault();
+    setIsDragging(false);
+  }, []);
+
   const handleDrop = useCallback(async (e) => {
     e.preventDefault();
+    setIsDragging(false);
     const file = e.dataTransfer.files?.[0];
     if (!file?.type.startsWith("image/")) return;
 
@@ -224,7 +235,6 @@ export default function MarkdownEditor({
     } catch { /* ignore */ }
   }
 
-  // Extract title from frontmatter
   const getTitle = useCallback(() => {
     try {
       const { data } = matter(content);
@@ -246,27 +256,29 @@ export default function MarkdownEditor({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title,
-          rawContent: content,
+          rawContent: content, // We must send rawContent back so it preserves frontmatter properly
           type: pageType,
+          tags,
         }),
       });
       const data = await res.json();
       if (data.ok) {
-        showStatus(`✅ Đã publish! /${pageType === "posts" ? "blog" : "tools"}/${data.slug}`);
+        showStatus(`✅ Đã lưu thành công!`);
         try { localStorage.removeItem(draftKey); } catch { /* ignore */ }
+        onSaved(); // Notify parent
       } else showStatus(`❌ ${data.error}`);
     } catch (e) {
       showStatus(`❌ Lỗi: ${e.message}`);
     }
     setPublishing(false);
-  }, [content, previewBody, pageType, tags, getTitle, draftKey, showStatus]);
+  }, [content, pageType, tags, getTitle, showStatus, draftKey, onSaved]);
 
   return (
-    <div className="md-editor">
-      <div className="md-editor-toolbar">
-        <div className="md-editor-actions">
+    <div className={styles.editorWrapper}>
+      <div className={styles.toolbar}>
+        <div className={styles.actions}>
           <select
-            className="md-editor-select"
+            className={styles.select}
             value={pageType}
             onChange={(e) => setPageType(e.target.value)}
           >
@@ -278,14 +290,15 @@ export default function MarkdownEditor({
           <button
             type="button"
             className="btn primary"
+            style={{ padding: "6px 12px", fontSize: "13px" }}
             onClick={handlePublish}
             disabled={publishing}
           >
-            {publishing ? "⏳ Đang publish..." : "🚀 Publish"}
+            {publishing ? "⏳ Đang lưu..." : "🚀 Lưu bài"}
           </button>
 
-          <button type="button" className="btn" onClick={() => fileInputRef.current?.click()}>
-            🖼 Upload ảnh
+          <button type="button" className="btn" style={{ padding: "6px 10px", fontSize: "13px" }} onClick={() => fileInputRef.current?.click()}>
+            🖼 Tải ảnh lên
           </button>
           <input
             ref={fileInputRef}
@@ -295,8 +308,8 @@ export default function MarkdownEditor({
             onChange={handleUploadImage}
           />
 
-          <button type="button" className="btn" onClick={() => mdInputRef.current?.click()}>
-            📂 Tải file .md
+          <button type="button" className="btn" style={{ padding: "6px 10px", fontSize: "13px" }} onClick={() => mdInputRef.current?.click()}>
+            📂 Đọc file .md
           </button>
           <input
             ref={mdInputRef}
@@ -305,74 +318,82 @@ export default function MarkdownEditor({
             style={{ display: "none" }}
             onChange={handleUploadMd}
           />
-
-          <button type="button" className="btn" onClick={downloadFile}>
-            ⬇ Tải .md
-          </button>
-          <button type="button" className="btn" onClick={copyToClipboard}>
-            Copy
-          </button>
-          <button type="button" className="btn" onClick={resetContent}>
-            Đặt lại
-          </button>
-          <button type="button" className="btn" onClick={clearDraft}>
-            Xóa nháp
-          </button>
-          <button
-            type="button"
-            className={`btn${showPreview ? "" : " primary"}`}
-            onClick={() => setShowPreview((v) => !v)}
-          >
-            {showPreview ? "Ẩn preview" : "Hiện preview"}
-          </button>
         </div>
 
-        <div className="md-editor-meta">
-          {status && <span className="md-editor-status">{status}</span>}
+        <div className={styles.meta}>
+          {status && <span className={styles.status}>{status}</span>}
           <span>{wordCount} từ</span>
         </div>
       </div>
 
-      <div className={`md-editor-panels${showPreview ? "" : " md-editor-single"}`}>
-        <div className="md-editor-pane">
-          <div className="md-editor-pane-label">// markdown</div>
-          <textarea
-            className="md-editor-textarea"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            onDrop={handleDrop}
-            onDragOver={(e) => e.preventDefault()}
-            onPaste={handlePaste}
-            spellCheck={false}
-            aria-label="Soạn Markdown"
-          />
+      {/* Tabs for Mobile View */}
+      {activeTab !== "split" && (
+        <div className={styles.tabs}>
+          <button 
+            className={`${styles.tabBtn} ${activeTab === "write" ? styles.activeTab : ""}`}
+            onClick={() => setActiveTab("write")}
+          >
+            Viết Markdown
+          </button>
+          <button 
+            className={`${styles.tabBtn} ${activeTab === "preview" ? styles.activeTab : ""}`}
+            onClick={() => setActiveTab("preview")}
+          >
+            Xem trước
+          </button>
         </div>
+      )}
 
-        {showPreview && (
-          <div className="md-editor-pane md-editor-preview">
-            <div className="md-editor-pane-label">// preview</div>
-            <div className="prose md-editor-prose">
-              <PostContent content={previewBody} />
+      <div className={styles.panels}>
+        {/* Write Pane */}
+        {(activeTab === "write" || activeTab === "split") && (
+          <div 
+            className={`${styles.pane} ${isDragging ? styles.dragging : ""}`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
+            <div className={styles.paneLabel}>// markdown</div>
+            <textarea
+              className={styles.textarea}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              onPaste={handlePaste}
+              spellCheck={false}
+              placeholder="Bắt đầu viết ở đây..."
+              aria-label="Soạn Markdown"
+            />
+          </div>
+        )}
+
+        {/* Preview Pane */}
+        {(activeTab === "preview" || activeTab === "split") && (
+          <div className={`${styles.pane} ${styles.paneRight}`}>
+            <div className={styles.paneLabel}>// xem trước</div>
+            <div className={styles.preview}>
+              <div className={`prose ${styles.prose}`}>
+                <PostContent content={previewBody} />
+              </div>
             </div>
           </div>
         )}
       </div>
 
-      <div className="md-editor-tags">
-        <div className="md-editor-tags-input">
-          <input
-            type="text"
-            placeholder="Thêm tag... (Enter để thêm)"
-            value={tagInput}
-            onChange={(e) => setTagInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addTag(); } }}
-          />
-        </div>
-        <div className="md-editor-tags-list">
+      {/* Tags Manager Input */}
+      <div className={styles.tagsBar}>
+        <input
+          type="text"
+          className={styles.tagsInput}
+          placeholder="Thêm thẻ (Nhấn Enter...)"
+          value={tagInput}
+          onChange={(e) => setTagInput(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addTag(); } }}
+        />
+        <div className={styles.tagsList}>
           {tags.map((tag) => (
-            <span key={tag} className="tag-pill md-editor-tag">
+            <span key={tag} className={styles.tagPill}>
               #{tag}
-              <button type="button" onClick={() => removeTag(tag)} className="md-editor-tag-remove">&times;</button>
+              <button type="button" onClick={() => removeTag(tag)} className={styles.tagRemove}>&times;</button>
             </span>
           ))}
         </div>

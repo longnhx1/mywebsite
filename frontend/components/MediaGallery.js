@@ -1,81 +1,63 @@
-"use client";
+import React, { useState } from "react";
+import styles from "./MediaGallery.module.css";
+import AnimateOnView from "./AnimateOnView";
 
-import { useState } from "react";
+export default function MediaGallery({ mediaFiles }) {
+  const [copiedUrl, setCopiedUrl] = useState(null);
 
-export default function MediaGallery({ initialFiles = [] }) {
-  const [files, setFiles] = useState(initialFiles);
-  const [copied, setCopied] = useState("");
+  const handleCopy = (url) => {
+    navigator.clipboard.writeText(url);
+    setCopiedUrl(url);
+    setTimeout(() => setCopiedUrl(null), 2000);
+  };
 
-  function formatSize(bytes) {
-    if (bytes < 1024) return `${bytes}B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)}KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(1)}MB`;
-  }
-
-  async function copyUrl(url) {
-    try {
-      await navigator.clipboard.writeText(`![alt](${url})`);
-      setCopied(url);
-      setTimeout(() => setCopied(""), 2000);
-    } catch {
-      //
-    }
-  }
-
-  async function handleDelete(name) {
-    if (!window.confirm(`Xóa ${name}?`)) return;
-    try {
-      const res = await fetch("/api/media", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name }),
-      });
-      const data = await res.json();
-      if (data.ok) {
-        setFiles((prev) => prev.filter((f) => f.name !== name));
-      } else {
-        alert(`Lỗi: ${data.error}`);
-      }
-    } catch (e) {
-      alert(`Lỗi: ${e.message}`);
-    }
-  }
+  const formatSize = (bytes) => {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  };
 
   return (
-    <div>
-      <div className="dash-toolbar">
-        <span className="dash-toolbar-label">{files.length} file ảnh</span>
-      </div>
-
-      {files.length === 0 ? (
-        <p className="empty-msg">Chưa có ảnh nào. Upload ảnh từ trình soạn thảo Markdown.</p>
-      ) : (
-        <div className="media-grid">
-          {files.map((f) => (
-            <div key={f.name} className="media-card">
-              <div className="media-preview">
-                <img src={f.url} alt={f.name} loading="lazy" />
-              </div>
-              <div className="media-info">
-                <span className="media-name" title={f.name}>{f.name}</span>
-                <span className="media-size">{formatSize(f.size)}</span>
-              </div>
-              <div className="media-actions">
-                <button className="btn btn-sm" onClick={() => copyUrl(f.url)}>
-                  {copied === f.url ? "✓ Đã copy" : "Copy Markdown"}
-                </button>
-                <button
-                  className="btn btn-sm"
-                  style={{ color: "var(--rose)", borderColor: "var(--rose)" }}
-                  onClick={() => handleDelete(f.name)}
-                >
-                  Xóa
-                </button>
-              </div>
-            </div>
-          ))}
+    <div className={styles.container}>
+      <AnimateOnView>
+        <div className={styles.header}>
+          <h2>Thư viện ảnh</h2>
+          <p className={styles.description}>Quản lý hình ảnh tĩnh được sử dụng trong bài viết</p>
         </div>
-      )}
+      </AnimateOnView>
+
+      <div className={styles.grid}>
+        {mediaFiles.length > 0 ? (
+          mediaFiles.map((file, index) => (
+            <AnimateOnView delay={100 + (index % 10) * 50} key={index}>
+              <div className={styles.card}>
+                <div className={styles.imageWrapper}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={file.url} alt={file.name} className={styles.image} loading="lazy" />
+                  <div className={styles.overlay}>
+                    <button
+                      className={styles.copyBtn}
+                      onClick={() => handleCopy(file.url)}
+                    >
+                      {copiedUrl === file.url ? "Đã copy!" : "Copy Link"}
+                    </button>
+                  </div>
+                </div>
+                <div className={styles.info}>
+                  <p className={styles.filename} title={file.name}>{file.name}</p>
+                  <p className={styles.size}>{formatSize(file.size)}</p>
+                </div>
+              </div>
+            </AnimateOnView>
+          ))
+        ) : (
+          <div className={styles.emptyState}>
+            Không có hình ảnh nào.
+          </div>
+        )}
+      </div>
     </div>
   );
 }

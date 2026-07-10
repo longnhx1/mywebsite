@@ -29,6 +29,7 @@ function readPostsFrom(dir) {
         tags: data.tags || [],
         order: data.order ?? 0,
         content,
+        rawContent: fileContent,
       };
     })
     .sort((a, b) => {

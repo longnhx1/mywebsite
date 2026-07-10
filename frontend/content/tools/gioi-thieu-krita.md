@@ -36,6 +36,13 @@ Windows, macOS, Linux, Android, ChromeOS. Có thể tải miễn phí từ trang
 
 ![application-screenshot.webp](/images/posts/application-screenshot.webp)
 
+## Cài đặt
+Truy cập trang chính thức https://krita.org/en/download/ 
+- [Windows Installer](https://download.kde.org/stable/krita/5.3.2.1/krita-x64-5.3.2.1-setup.exe)
+- [Windows Portable](https://download.kde.org/stable/krita/5.3.2.1/krita-x64-5.3.2.1.zip)
+- [Linux - AppImage](https://download.kde.org/stable/krita/5.3.2.1/krita-5.3.2.1-x86_64.AppImage)
+- [macOS](https://download.kde.org/stable/krita/5.3.2.1/krita-5.3.2.1-signed.dmg)
+
 ## Giấy phép
 
 Krita phát hành theo giấy phép **GPL-3.0**, hoàn toàn miễn phí sử dụng và có thể tự do sửa đổi, đóng góp mã nguồn.

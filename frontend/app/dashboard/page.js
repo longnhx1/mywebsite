@@ -62,23 +62,13 @@ export default function DashboardPage() {
 
   return (
     <AppShell>
-      <section className="view page-enter" style={{ display: "block" }} id="dashboard">
-        <AnimateOnView>
-          <p className="eyebrow">trang quản trị</p>
-          <h2>Dashboard</h2>
-          <p>
-            Quản lý nội dung website - bài viết Markdown cho Blog và Apps &amp; Games.
-          </p>
-        </AnimateOnView>
-
-        <AnimateOnView delay={120}>
-          <DashboardClient
-            posts={posts}
-            toolsPosts={toolsPosts}
-            stats={dashStats}
-            mediaFiles={mediaFiles}
-          />
-        </AnimateOnView>
+      <section className="view page-enter" style={{ display: "block", padding: 0 }} id="dashboard">
+        <DashboardClient
+          posts={posts}
+          toolsPosts={toolsPosts}
+          stats={dashStats}
+          mediaFiles={mediaFiles}
+        />
       </section>
     </AppShell>
   );

@@ -1,6 +1,7 @@
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import { SITE_HOST, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
+import Script from "next/script";
 
 export const metadata = {
   title: {
@@ -55,7 +56,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="vi" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script id="theme-script" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: themeScript }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

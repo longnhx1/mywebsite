@@ -1,47 +1,55 @@
-import AppShell from "@/components/AppShell";
 import MarkdownEditor from "@/components/MarkdownEditor";
-import AnimateOnView from "@/components/AnimateOnView";
+import { getPostRawBySlug, getPostBySlug } from "@/lib/posts";
 import Link from "next/link";
-import { getAllPosts } from "@/lib/posts";
 
 export const metadata = {
-  title: "Soạn bài mới - Dashboard - longnhx",
+  title: "Soạn thảo bài viết - Dashboard",
   robots: { index: false, follow: false },
 };
 
-export default function DashboardEditNewPage() {
-  const posts = getAllPosts();
+export default async function FullscreenEditorPage({ searchParams }) {
+  const { slug, type = "posts" } = await searchParams;
+
+  let rawContent = "";
+  let post = null;
+
+  if (slug) {
+    rawContent = getPostRawBySlug(slug, type);
+    post = getPostBySlug(slug, type);
+  }
 
   return (
-    <AppShell>
-      <section className="view page-enter md-editor-page" style={{ display: "block" }} id="dashboard">
-        <AnimateOnView>
-          <Link href="/dashboard" className="btn" style={{ marginBottom: "20px" }}>
-            ← Dashboard
+    <div style={{ 
+      minHeight: "100vh", 
+      background: "var(--bg)", 
+      padding: "20px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "20px"
+    }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div>
+          <Link href="/dashboard" className="btn" style={{ textDecoration: "none", display: "inline-block", marginBottom: "10px" }}>
+            ← Quay lại Dashboard
           </Link>
-          <p className="eyebrow">soạn thảo</p>
-          <h2>Bài viết mới</h2>
-          <p>
-            Soạn Markdown, xem preview trực tiếp, tải file về và đặt vào{" "}
-            <code>content/posts/</code>.
+          <h1 style={{ margin: 0, fontSize: "24px", color: "var(--text)" }}>
+            {post ? `Chỉnh sửa: ${post.title}` : "Soạn bài viết mới"}
+          </h1>
+          <p style={{ margin: "5px 0 0 0", color: "var(--text-dim)", fontSize: "14px" }}>
+            {slug ? `Đang sửa file ${slug}.md` : "Hãy viết nội dung tuyệt vời nhé!"}
           </p>
-        </AnimateOnView>
+        </div>
+      </div>
 
-        {posts.length > 0 && (
-          <div className="md-editor-quick-links">
-            <span>Hoặc sửa bài có sẵn:</span>
-            {posts.map((p) => (
-              <Link key={p.slug} href={`/dashboard/edit/${p.slug}`} className="chip">
-                {p.title}
-              </Link>
-            ))}
-          </div>
-        )}
-
-        <AnimateOnView delay={100}>
-          <MarkdownEditor fileName="bai-viet-moi.md" />
-        </AnimateOnView>
-      </section>
-    </AppShell>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <MarkdownEditor
+          slug={slug}
+          initialContent={rawContent}
+          fileName={slug ? `${slug}.md` : "bai-viet-moi.md"}
+          pageType={type}
+          onSaved={() => {}}
+        />
+      </div>
+    </div>
   );
 }

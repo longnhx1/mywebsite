@@ -1,0 +1,142 @@
+<div style="display:flex;gap:0;min-height:600px">
+  <div style="width:180px;flex-shrink:0;border-right:0.5px solid var(--border);padding:1rem 0.75rem;display:flex;flex-direction:column;gap:4px">
+    <div style="font-size:13px;font-weight:500;color:var(--text-muted);padding:0 8px 12px">my-site.dev</div>
+    <div id="nav-server" style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:var(--radius);background:var(--surface-1);cursor:pointer;font-size:14px"><i class="ti ti-server-2" style="font-size:16px" aria-hidden="true"></i>Server</div>
+    <div id="nav-content" style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:var(--radius);cursor:pointer;font-size:14px;color:var(--text-secondary)"><i class="ti ti-layout-grid" style="font-size:16px" aria-hidden="true"></i>Content</div>
+  </div>
+  <div style="flex:1;padding:1rem 1.25rem">
+
+    <div id="view-server">
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:1.25rem">
+        <div style="background:var(--surface-1);border-radius:var(--radius);padding:1rem">
+          <p style="font-size:13px;color:var(--text-secondary);margin:0 0 4px">CPU</p>
+          <p style="font-size:24px;font-weight:500;margin:0">34%</p>
+        </div>
+        <div style="background:var(--surface-1);border-radius:var(--radius);padding:1rem">
+          <p style="font-size:13px;color:var(--text-secondary);margin:0 0 4px">RAM</p>
+          <p style="font-size:24px;font-weight:500;margin:0">2.1 / 4 GB</p>
+        </div>
+        <div style="background:var(--surface-1);border-radius:var(--radius);padding:1rem">
+          <p style="font-size:13px;color:var(--text-secondary);margin:0 0 4px">Disk</p>
+          <p style="font-size:24px;font-weight:500;margin:0">61 GB</p>
+        </div>
+        <div style="background:var(--surface-1);border-radius:var(--radius);padding:1rem">
+          <p style="font-size:13px;color:var(--text-secondary);margin:0 0 4px">Uptime</p>
+          <p style="font-size:24px;font-weight:500;margin:0">14d 3h</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;margin-bottom:8px;font-size:12px;color:var(--text-secondary)">
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#2a78d6"></span>CPU %</span>
+        <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#1baf7a"></span>RAM %</span>
+      </div>
+      <div style="position:relative;width:100%;height:200px;margin-bottom:1.5rem">
+        <canvas id="serverChart" role="img" aria-label="Line chart of CPU and RAM usage over the last 12 hours">CPU and RAM usage trending between 20% and 45% over 12 hours.</canvas>
+      </div>
+
+      <p style="font-size:14px;font-weight:500;margin:0 0 8px">Network / bandwidth</p>
+      <div style="position:relative;width:100%;height:160px">
+        <canvas id="netChart" role="img" aria-label="Bar chart of daily bandwidth usage, last 7 days">Daily bandwidth ranging from 4 to 12 GB over the last 7 days.</canvas>
+      </div>
+    </div>
+
+    <div id="view-content" style="display:none">
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:1.25rem">
+        <div style="background:var(--surface-1);border-radius:var(--radius);padding:1rem">
+          <p style="font-size:13px;color:var(--text-secondary);margin:0 0 4px">Posts</p>
+          <p style="font-size:24px;font-weight:500;margin:0">128</p>
+        </div>
+        <div style="background:var(--surface-1);border-radius:var(--radius);padding:1rem">
+          <p style="font-size:13px;color:var(--text-secondary);margin:0 0 4px">Games</p>
+          <p style="font-size:24px;font-weight:500;margin:0">17</p>
+        </div>
+        <div style="background:var(--surface-1);border-radius:var(--radius);padding:1rem">
+          <p style="font-size:13px;color:var(--text-secondary);margin:0 0 4px">Apps / tools</p>
+          <p style="font-size:24px;font-weight:500;margin:0">24</p>
+        </div>
+        <div style="background:var(--surface-1);border-radius:var(--radius);padding:1rem">
+          <p style="font-size:13px;color:var(--text-secondary);margin:0 0 4px">Total downloads</p>
+          <p style="font-size:24px;font-weight:500;margin:0">9.4k</p>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <p style="font-size:14px;font-weight:500;margin:0">Recent items</p>
+        <button id="btn-add" style="font-size:13px"><i class="ti ti-plus" style="font-size:14px;vertical-align:-2px" aria-hidden="true"></i> Add new</button>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed">
+        <thead>
+          <tr style="border-bottom:0.5px solid var(--border)">
+            <th style="text-align:left;padding:8px 4px;color:var(--text-secondary);font-weight:500">Title</th>
+            <th style="text-align:left;padding:8px 4px;color:var(--text-secondary);font-weight:500;width:90px">Type</th>
+            <th style="text-align:left;padding:8px 4px;color:var(--text-secondary);font-weight:500;width:70px">Status</th>
+            <th style="text-align:right;padding:8px 4px;color:var(--text-secondary);font-weight:500;width:70px">Views</th>
+          </tr>
+        </thead>
+        <tbody id="content-rows"></tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const navServer = document.getElementById('nav-server');
+const navContent = document.getElementById('nav-content');
+const viewServer = document.getElementById('view-server');
+const viewContent = document.getElementById('view-content');
+
+function setActive(tab){
+  const active = {background:'var(--surface-1)', color:''};
+  navServer.style.background = tab==='server' ? 'var(--surface-1)' : 'transparent';
+  navServer.style.color = tab==='server' ? '' : 'var(--text-secondary)';
+  navContent.style.background = tab==='content' ? 'var(--surface-1)' : 'transparent';
+  navContent.style.color = tab==='content' ? '' : 'var(--text-secondary)';
+  viewServer.style.display = tab==='server' ? '' : 'none';
+  viewContent.style.display = tab==='content' ? '' : 'none';
+}
+navServer.onclick = () => setActive('server');
+navContent.onclick = () => setActive('content');
+
+const hours = Array.from({length:12}, (_,i)=>`${i*2}h`);
+const cpu = [22,28,31,40,45,38,30,26,33,41,36,34];
+const ram = [30,32,35,38,40,42,41,39,37,36,38,40];
+
+new Chart(document.getElementById('serverChart'), {
+  type: 'line',
+  data: { labels: hours, datasets: [
+    {label:'CPU %', data: cpu, borderColor:'#2a78d6', borderWidth:2, pointRadius:0, tension:0.3},
+    {label:'RAM %', data: ram, borderColor:'#1baf7a', borderWidth:2, pointRadius:0, tension:0.3}
+  ]},
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+    scales:{ y:{min:0,max:60,grid:{color:'#e1e0d9'}}, x:{grid:{display:false}} } }
+});
+
+new Chart(document.getElementById('netChart'), {
+  type: 'bar',
+  data: { labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], datasets:[{label:'GB', data:[6,8,5,12,9,7,10], backgroundColor:'#2a78d6', borderRadius:4}] },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+    scales:{ y:{grid:{color:'#e1e0d9'}}, x:{grid:{display:false}} } }
+});
+
+const items = [
+  {title:'Cách setup VPS Ubuntu 24 từ A-Z', type:'Post', status:'Live', views:'1.2k'},
+  {title:'2048 Clone', type:'Game', status:'Live', views:834},
+  {title:'JSON Formatter Tool', type:'Tool', status:'Live', views:2100},
+  {title:'Kinh nghiệm học React trong 30 ngày', type:'Post', status:'Draft', views:0},
+  {title:'PDF Merger App', type:'App', status:'Live', views:410},
+];
+const statusColor = s => s==='Live' ? {bg:'var(--bg-success)', text:'var(--text-success)'} : {bg:'var(--bg-warning)', text:'var(--text-warning)'};
+document.getElementById('content-rows').innerHTML = items.map(it => {
+  const c = statusColor(it.status);
+  return `<tr style="border-bottom:0.5px solid var(--border)">
+    <td style="padding:8px 4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${it.title}</td>
+    <td style="padding:8px 4px;color:var(--text-secondary)">${it.type}</td>
+    <td style="padding:8px 4px"><span style="background:${c.bg};color:${c.text};font-size:11px;padding:2px 8px;border-radius:var(--radius)">${it.status}</span></td>
+    <td style="padding:8px 4px;text-align:right">${it.views}</td>
+  </tr>`;
+}).join('');
+
+document.getElementById('btn-add').onclick = () => sendPrompt('Thiết kế form thêm content mới (post/game/app/tool) cho dashboard');
+</script>

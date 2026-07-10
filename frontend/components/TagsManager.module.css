@@ -1,0 +1,120 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.header h2 {
+  margin: 0 0 5px 0;
+  font-size: 24px;
+  color: var(--text);
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.card h3 {
+  margin: 0 0 4px 0;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.desc {
+  margin: 0 0 20px 0;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: var(--surface-1);
+  border-radius: 8px;
+  transition: background var(--transition-fast);
+}
+
+.listItem:hover {
+  background: var(--bg-elev-2);
+}
+
+.itemName {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.itemCount {
+  font-size: 12px;
+  background: var(--bg-elev);
+  padding: 2px 8px;
+  border-radius: 10px;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+}
+
+.tagCloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.tagItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--teal);
+  background: rgba(15, 125, 108, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  cursor: default;
+  transition: transform var(--transition-fast);
+}
+
+.tagItem:hover {
+  transform: scale(1.05);
+}
+
+.tagBadge {
+  font-size: 10px;
+  background: var(--teal);
+  color: white;
+  padding: 0 5px;
+  border-radius: 10px;
+  line-height: 1.4;
+}
+
+.empty {
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 14px;
+}
